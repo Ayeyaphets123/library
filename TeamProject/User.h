@@ -22,6 +22,5 @@ class User
         virtual void readBook(const Book &b) = 0;
     private:
         accessibilityType accessibilityLevel;
-
 };
 #endif
