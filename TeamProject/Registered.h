@@ -1,5 +1,5 @@
-#ifndef Registered_H
-#define Registered_H
+#ifndef RG_H
+#define RG_H
 #include "User.h"
 class Registered : public User
 {
@@ -11,7 +11,9 @@ class Registered : public User
         std::string fullname;
         static int userCount;
     public:
-        Registered(accessibilityType AL) : User(AL),ID(0), username(" "), password(" "), phone(" "), fullname(" "){}
+        Registered(accessibilityType AL) : User(AL), ID(0), username(" "), password(" "), phone(" "), fullname(" "){
+            userCount++;
+        }
         Registered(int ID, std::string U, std::string Pass,std::string Phone , std::string F, accessibilityType AL);
         void setID(int ID);
         void setU(std::string);
@@ -23,10 +25,8 @@ class Registered : public User
         std::string getPhone() const;
         std::string getP() const;
         std::string getF() const;
-        void login(int, std::string User, std::string Pass);
+        void login(int, std::string U, std::string P);
         void logout();   
         
 };
-
-
 #endif

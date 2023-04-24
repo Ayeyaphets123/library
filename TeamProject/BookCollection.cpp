@@ -1,27 +1,61 @@
 #include "BookCollection.h"
-BookCollection::BookCollection(int ID,int NumBook, std::string CoName, Book *list){
+
+Collection::Collection(int ID, std::string CoName){
     setCoID(ID);
     setCoName(CoName);
-    setBookList(list, ID);
+    BookList.clear();
+    subscribedUser.clear();
 }
-BookCollection::~BookCollection()
+Collection::~Collection()
 {
-    if(BookList != nullptr) delete [] BookList;
+    if(BookList.empty()){
+        for(int i = 0 ;i <  BookList.size(); i++){
+            delete BookList[i];
+        }
+        BookList.clear();
+    }
+    if(subscribedUser.empty()){
+        for(int i = 0 ;i <  subscribedUser.size(); i++){
+            delete subscribedUser[i];
+        }
+        subscribedUser.clear();
+    }
 }
-
-void BookCollection::setBookList(Book *list, int NumBook){
-   
-}
-void BookCollection::setCoID(int ID){
+void Collection::setCoID(int ID){
     if(ID > 0) CollectionID = ID;
     else return;
 }
-void BookCollection::setCoName(std::string N){
+void Collection::setCoName(std::string N){
     CollectionName = N;
 }
-std::string BookCollection::getCoName() const{
+std::string Collection::getCoName() const{
     return CollectionName;
 }
-Book *BookCollection::getBookList() const{
-    return BookList;
+void Collection::addBookToCollection(Book *b){
+    BookList.push_back(b);
 }
+void Collection::displayCollection(){
+    if(BookList.empty())
+    std::cout << "Empty list to show book!\n";
+    else{  
+        std::cout << "List Book\n";
+        for(int i = 0 ; i < BookList.size();i++){
+            std::cout << BookList[i]->getT() << "\n";
+        }
+    }
+}
+void Collection::displaySubscriber()
+{
+    if(subscribedUser.empty()){
+        std::cout << "No one subscribe the Collection " << CollectionName << "\n";
+    }
+    else{
+        std::cout << "Subscriber list\n";
+        for(int i = 0 ; i < subscribedUser.size(); i++){
+            std::cout << subscribedUser[i]->getF() << "\n";
+        }
+    }
+}
+
+
+

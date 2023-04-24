@@ -1,12 +1,14 @@
 #include "Registered.h"
 #include <iostream>
 
-Registered::Registered( int ID, std::string U, std::string Pass,std::string Phone , std::string F, accessibilityType AL) : User(AL){
+Registered::Registered(int ID, std::string U, std::string Pass, std::string Phone, std::string F, accessibilityType AL) : User(AL)
+{
     setID(ID);
     setU(U);
     setPass(Pass);
     setPhone(Phone);
     setF(F);
+    userCount++;
 }
 void Registered::setID(int ID){
     if(ID > 0) this->ID = ID;

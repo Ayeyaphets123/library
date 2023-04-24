@@ -66,6 +66,7 @@ bool Book::getBorrowedStatus() const{
 
 void Book::display()
 {   
+    std::cout << "============\n";
     std::cout << "Tittle: " << Tittle << "\n"
               << "serialNumber: " << serialNumber << "\n"
               << "author: " << author << "\n"
@@ -74,5 +75,6 @@ void Book::display()
               << "category: " << category << "\n"
               << "visibilityStatus: " << visibilityStatus << "\n"
               << "borrowedStatus: " << borrowedStatus << "\n";
+    std::cout << "============\n";
 
 }

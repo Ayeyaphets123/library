@@ -3,7 +3,10 @@ Guest::Guest() : User(){
     setID(countID);
     countID++;
 }
-void Guest::Register(int ID, std::string username, std::string password, std::string phone, std::string fullname){
+Guest::~Guest(){}
+
+void Guest::Register( std::string username, std::string password, std::string phone, std::string fullname)
+{
     
 }
 void Guest::setID(int id){

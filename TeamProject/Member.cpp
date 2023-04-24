@@ -10,10 +10,10 @@ void Member::borrowBook(const Book &b)
 void Member::returnBook(const Book &b){
     
 }
-void Member::subscribeCollection(const BookCollection &BS ){
+void Member::subscribeCollection(Collection BS ){
     
 }
-void Member::unSubscribeCollection(const BookCollection &BS ){
+void Member::unSubscribeCollection( Collection BS ){
     
 }
 void Member::displayCollectionList(bool ){
@@ -22,3 +22,4 @@ void Member::displayCollectionList(bool ){
 void Member::displayBorrowedList(){
     
 }
+void Member::readBook(const Book &b){}
