@@ -16,7 +16,16 @@ void Book::setTittle(std::string T){
     Tittle = T;
 }
 void Book::setSerialNum(std::string S){
-    serialNumber = S;
+    try {
+        for (int i = 0; i < listBook.size(); i++) {
+            if (listBook[i]->getSeNum() == S) {
+                throw "Serial number exists!";
+            }
+        }
+    }
+    catch (const char* error) {
+        std::cout << "Error! " << error << std::endl;
+    }
 }
 void Book::setAuthor(std::string A){
     author = A;

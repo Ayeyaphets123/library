@@ -17,7 +17,7 @@ class Member : public Registered
                 borrowedList.clear();
                 subscribedCollectionList.clear();
         }
-        Member(int ID, std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType AL = Medium);
+        Member(std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType AL = Medium);
         ~Member(){};
         void borrowBook(const Book &b);
         void returnBook(const Book &b);

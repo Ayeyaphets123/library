@@ -1,9 +1,9 @@
 #include "Registered.h"
 #include <iostream>
 
-Registered::Registered(int ID, std::string U, std::string Pass, std::string Phone, std::string F, accessibilityType AL) : User(AL)
+Registered::Registered( std::string U, std::string Pass, std::string Phone, std::string F, accessibilityType AL) : User(AL)
 {
-    setID(ID);
+    setID(userCount);
     setU(U);
     setPass(Pass);
     setPhone(Phone);
@@ -47,4 +47,4 @@ void Registered::login(int lv, std::string user, std::string pass){
 void Registered::logout(){
 
 } 
-int Registered::userCount =0;
+int Registered::userCount = 0;

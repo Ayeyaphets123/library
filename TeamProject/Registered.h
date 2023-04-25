@@ -9,12 +9,13 @@ class Registered : public User
         std::string password;
         std::string phone;
         std::string fullname;
-        static int userCount;
+
     public:
+        static int userCount;
         Registered(accessibilityType AL) : User(AL), ID(0), username(" "), password(" "), phone(" "), fullname(" "){
             userCount++;
         }
-        Registered(int ID, std::string U, std::string Pass,std::string Phone , std::string F, accessibilityType AL);
+        Registered(std::string U, std::string Pass,std::string Phone , std::string F, accessibilityType AL);
         void setID(int ID);
         void setU(std::string);
         void setPass(std::string);
