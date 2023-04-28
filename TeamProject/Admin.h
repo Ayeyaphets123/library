@@ -21,9 +21,9 @@ class Admin : public Registered
         static void addBook(Library *lib, Book *b);
         static void removeBook(Library *lib);
         static void EditBook(Library *lib, std::string SeNum);
-        static void EditCollection(Library *lib, int &);
-        static void createCollection(Book *b, Collection *col);
-        static void deleteCollection(Collection *c); 
+        static void EditCollection(Library *lib);
+        static void createCollection();
+        static void deleteCollection(); 
 
         std::vector <Member *> getMemberList() const;
         std::vector <Collection *> getCollectionList() const;

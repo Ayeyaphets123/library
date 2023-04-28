@@ -10,13 +10,15 @@ class Collection
         int CollectionID;
         std::string CollectionName;
         std::vector<Book *> BookList;
+        Book *HelpSearchBook(std::string);
         void HelpDeleteBook(std::string);
-
+        static int CollectionCountID;
     public:
         Collection() : CollectionID(0), CollectionName(" "){
             BookList.clear();
+            CollectionCountID++;
         }
-        Collection(int ID, std::string CoName);
+        Collection(std::string CoName);
         Collection(const Collection &BC);
         ~Collection();
         

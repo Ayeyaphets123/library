@@ -12,7 +12,7 @@ Book *Library::HelpSeachBookT(std::string T)
     for(int  i = 0; i < listBook.size(); i++){
         if(listBook[i]->getT() == T){
             Book * b = new Book();
-            b = listBook[i];
+            *b = *listBook[i];
             return b;
         }
     }
@@ -35,7 +35,7 @@ Book *Library::HelpSeachBookSE(std::string SE)
     for(int  i = 0; i < listBook.size(); i++){
         if(listBook[i]->getSeNum() == SE){
             Book * b = new Book();
-            b = listBook[i];
+            *b = *listBook[i];
             return b;
         }
     }
@@ -50,11 +50,6 @@ void Library::searchBookSerialNum(std::string SE)
     else{
         std::cout << "Book " << SE << " not found\n";
     }
-}
-
-Collection *Library::HelpSearchCollectionName(std::string Cn)
-{   
-    return nullptr;
 }
 Book *Library::HelpSeachBookSE(std::string SE, int &index){
     for(int  i = 0; i < listBook.size(); i++){

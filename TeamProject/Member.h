@@ -12,13 +12,14 @@ class Member : public Registered
         int EndYear;
         std::vector <Book *> borrowedList;
         std::vector <Collection *> subscribedCollectionList;
+
     public:
         Member() : Registered(Medium),startTear(0), EndYear(0){
                 borrowedList.clear();
                 subscribedCollectionList.clear();
         }
         Member(std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType AL = Medium);
-        ~Member(){};
+        ~Member();
         void borrowBook(Book *b);
 
         void returnBook(Book *b);
@@ -38,6 +39,9 @@ class Member : public Registered
         int getEndYear() const;
         std::vector<Book *> getBorrowedBookList() const;
         std::vector <Collection *> getSubscribedCollectionList() const;
+
+        void deleteBookInBorrowList(std::string);
+        void deleteBookInSubscribedCollection(std::string);
 };
 
 #endif
