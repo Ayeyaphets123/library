@@ -15,7 +15,7 @@ void Guest::setID(int id){
 int Guest::getID() const{
     return ID;
 }
-void Guest::readBook(const Book &b) 
+void Guest::readBook(const Book *b) 
 {
 
 }

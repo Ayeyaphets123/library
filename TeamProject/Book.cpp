@@ -12,20 +12,39 @@ Book::Book(std::string T, std::string S, std::string A, int P, int FP, int C, bo
     setVisibilityStatus(VS);
     setBorrowedStatus(BS);
 }
-void Book::setTittle(std::string T){
+Book &Book::operator=(Book *b)
+{
+    if(this == b){
+    }
+    else{
+        this->setAuthor(b->getAuthor());
+        this->setTittle(b->getT());
+        this->setSerialNum(b->getSeNum());
+        this->setCategory(b->getCategory());
+        this->setPageNum(b->getPageNum());
+        this->setBorrowedStatus(b->getBorrowedStatus());
+        this->setFreePage(b->getFreePage());
+        this->setVisibilityStatus(b->getVisibilityStatus());
+    }
+    return *this;
+}
+Book::Book(const Book *b)
+{
+    this->setAuthor(b->getAuthor());
+    this->setTittle(b->getT());
+    this->setSerialNum(b->getSeNum());
+    this->setCategory(b->getCategory());
+    this->setPageNum(b->getPageNum());
+    this->setBorrowedStatus(b->getBorrowedStatus());
+    this->setFreePage(b->getFreePage());
+    this->setVisibilityStatus(b->getVisibilityStatus());
+}
+void Book::setTittle(std::string T)
+{
     Tittle = T;
 }
 void Book::setSerialNum(std::string S){
-    try {
-        for (int i = 0; i < listBook.size(); i++) {
-            if (listBook[i]->getSeNum() == S) {
-                throw "Serial number exists!";
-            }
-        }
-    }
-    catch (const char* error) {
-        std::cout << "Error! " << error << std::endl;
-    }
+    serialNumber = S;
 }
 void Book::setAuthor(std::string A){
     author = A;

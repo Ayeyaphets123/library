@@ -1,6 +1,7 @@
 #ifndef BOOK_H
 #define BOOK_H
 #include <string>
+#include "Library.h"
 class Book
 {
     private:
@@ -16,8 +17,10 @@ class Book
         Book();
         Book(std::string T, std::string S, std::string A, int P, int FP, int C, bool VS, bool BS);
         ~Book() {}
+        Book &operator =(Book *b);
+        Book (const Book *b);
         void setTittle(std::string);
-        void setSerialNum(std::string);
+        void setSerialNum( std::string);
         void setAuthor(std::string);
         void setPageNum(int);
         void setFreePage(int);

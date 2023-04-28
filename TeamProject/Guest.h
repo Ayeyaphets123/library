@@ -14,6 +14,6 @@ class Guest : public User
         void Register(std::string username,std::string password,std::string phone,std::string fullname);
         void setID(int);
         int getID() const;
-        void readBook(const Book &b);
+        void readBook(const Book *b);
 };
 #endif

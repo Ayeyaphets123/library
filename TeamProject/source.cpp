@@ -1,12 +1,39 @@
 #include <iostream>
 #include <string>
-#include "GlobalVar.cpp"
+#include "Library.cpp"
 #include "User.cpp"
 #include "Registered.cpp"
 #include "Admin.cpp"
 #include "Member.cpp"
 #include "Guest.cpp"
 #include "Book.cpp"
+#include "Menu.cpp"
+
+enum Action
+{      
+    Admin_action,
+    Member_action,
+    Guest_action,
+    Out,
+    search_Book,
+    add_book ,
+    remove_book, 
+    edit_book,
+    create_collection,
+    edit_collection,
+    delete_Collection,
+
+    read_Book,
+    borrow_Book,
+    return_Book,
+    subscribe_Collection,
+    un_Subscribe_Collection,
+    display_Collection_List,
+    display_Borrowed_List,
+
+    read_free_book,
+    become_Member
+};
 
 
 int main()
@@ -18,13 +45,9 @@ int main()
         new Book("cooking","345676","queen",200,10,1,true, false)
 
     };
-    for(int i = 0 ;i < 3; i++){
-        ptr->addBook(b[i]);
-    }
-    ptr->displayBookList();
-    ptr->searchBookSerialNum("123456");
-    std::cout << "Enter your ";
-    ptr->addMember("member123","admin123","00000000","Le quang anh");
-    ptr->addMember("member123","admin123","00000000","Le quang anh");
+   
 return 0;
 }
+
+
+

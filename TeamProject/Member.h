@@ -19,21 +19,25 @@ class Member : public Registered
         }
         Member(std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType AL = Medium);
         ~Member(){};
-        void borrowBook(const Book &b);
-        void returnBook(const Book &b);
+        void borrowBook(Book *b);
 
-        void subscribeCollection( Collection BS);
-        void unSubscribeCollection(Collection BS);
+        void returnBook(Book *b);
+
+        void subscribeCollection( Collection *S);
+        void unSubscribeCollection(Collection *BS);
 
         void displayCollectionList(bool);
         void displayBorrowedList();
 
-        void readBook(const Book &b);
+        void readBook(const Book *b);
 
         void setStartYear();
         void setEndYear();
+
         int getStartYear() const;
         int getEndYear() const;
+        std::vector<Book *> getBorrowedBookList() const;
+        std::vector <Collection *> getSubscribedCollectionList() const;
 };
 
 #endif

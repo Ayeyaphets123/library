@@ -1,10 +1,9 @@
 #include "BookCollection.h"
-
-Collection::Collection(int ID, std::string CoName){
+Collection::Collection(int ID, std::string CoName)
+{
     setCoID(ID);
     setCoName(CoName);
     BookList.clear();
-    subscribedUser.clear();
 }
 Collection::~Collection()
 {
@@ -14,12 +13,7 @@ Collection::~Collection()
         }
         BookList.clear();
     }
-    if(subscribedUser.empty()){
-        for(int i = 0 ;i <  subscribedUser.size(); i++){
-            delete subscribedUser[i];
-        }
-        subscribedUser.clear();
-    }
+    
 }
 void Collection::setCoID(int ID){
     if(ID > 0) CollectionID = ID;
@@ -34,28 +28,44 @@ std::string Collection::getCoName() const{
 void Collection::addBookToCollection(Book *b){
     BookList.push_back(b);
 }
-void Collection::displayCollection(){
+void Collection::displayCollection(bool signal){
     if(BookList.empty())
     std::cout << "Empty list to show book!\n";
     else{  
         std::cout << "List Book\n";
-        for(int i = 0 ; i < BookList.size();i++){
-            std::cout << BookList[i]->getT() << "\n";
-        }
+        std::cout << "Id " << CollectionID << "\n" << "\t" << "Collection name: " << CollectionName << "\n";
+        if(signal)
+            for(int i = 0 ; i <  BookList.size(); i++){
+                std::cout << i + 1 << ". " << BookList[i]->getT() << "\n";
+            }
+        
     }
 }
-void Collection::displaySubscriber()
+
+void Collection::deleteBook(std::string N)
 {
-    if(subscribedUser.empty()){
-        std::cout << "No one subscribe the Collection " << CollectionName << "\n";
+    HelpDeleteBook(N);
+}
+void Collection::HelpDeleteBook(std::string N)
+{
+    if(BookList.empty())
+    {
+        std::cout << "Empty Collection to delete\n";
     }
     else{
-        std::cout << "Subscriber list\n";
-        for(int i = 0 ; i < subscribedUser.size(); i++){
-            std::cout << subscribedUser[i]->getF() << "\n";
+        for(int i = 0 ; i < BookList.size(); i++){
+            if(N == BookList[i]->getT()){
+                BookList.erase(BookList.begin() + i);
+                for(int j = i; j < BookList.size(); j++){
+                    BookList[j] = BookList[j + 1];
+
+                }
+                std::cout << "Delete successfully\n";
+                return;
+            }
+
         }
+        std::cout << "Book " << N << " is not found to delete in the collection\n";
     }
+
 }
-
-
-

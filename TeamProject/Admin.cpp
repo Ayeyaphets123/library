@@ -2,45 +2,97 @@
 #include "Admin.h"
 #include <cstring>
 Admin::~Admin(){
-    listBook.clear();
-    listCollection.clear(); 
+    
+    // delete BookList in library
+    for(int i = 0 ;i <listCollection.size(); i++){
+        if(listCollection[i]) 
+            for(int j = 0 ; j < listCollection[i]->getBookList().size(); i++){
+                if(listCollection[i]->getBookList()[j]) 
+                    delete listCollection[i]->getBookList()[j];
+            }
+        delete listCollection[i];
+    }
+        listCollection.clear();
+
+    for(int i = 0 ;i <MemberList.size(); i++){
+
+        if(MemberList[i]){ 
+            for(int j = 0 ; j < MemberList[i]->getBorrowedBookList().size(); j++){
+                if(MemberList[i]->getBorrowedBookList()[j])
+                    delete MemberList[i]->getBorrowedBookList()[j];
+            }
+            //delete BookList in Collection -> delete the collection -> delete Member has the collections
+            for(int j = 0 ; j < MemberList[i]->getSubscribedCollectionList().size(); j++){
+                if( MemberList[i]->getSubscribedCollectionList()[j]){
+                    for(int k = 0 ; k < MemberList[i]->getSubscribedCollectionList()[j]->getBookList().size() ;k++){
+                        if(MemberList[i]->getSubscribedCollectionList()[j]->getBookList()[k])
+                            delete MemberList[i]->getSubscribedCollectionList()[j]->getBookList()[k];
+                    }
+                }
+                delete MemberList[i]->getSubscribedCollectionList()[j];
+            }
+        }
+        delete MemberList[i];
+    
+    }
+    MemberList.clear();
 }
-Admin::Admin(std::string userName, std::string password, std::string phone, std::string fullname,accessibilityType AL )
-    :  Registered(userName,password,phone,fullname,AL){}
-void Admin::addBook( Book *b){
-    listBook.push_back(b);
+Admin* Admin::CreatAdmin()
+{   
+    std::cout << "Username: ";
+    std::string u;
+    getline(std::cin,u);
+    std::cout << "\n";
+    std::cout << "Password: ";
+    std::string p;
+    getline(std::cin,p);
+    std::cout << "Phone: ";
+    std::string phone;
+    getline(std::cin,phone);
+    std::cout << "Full name: ";
+    std::string fn;
+    getline(std::cin, fn);
+    Admin * newAd = new Admin(u,p,phone,fn);
+    std::cout << "Create new Admin account successfully\n";
+    return newAd;
 }
-void Admin::removeBook( Book *b) {
+Admin::Admin(std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType AL)
+    : Registered(userName, password, phone, fullname, AL) {}
+void Admin::addBook(Library *lib, Book *b){
+    lib->listBook.push_back(b);
+    std::cout << "Add book successfully\n";
+}
+void Admin::removeBook(Library *lib) {
    try{
-    if(listBook.empty())
+    if(lib->listBook.empty())
         throw"Empty list to delete";
     else{
-        for(int i = 0 ; i < listBook.size(); i++){
-            if(listBook[i]->getSeNum() == b->getSeNum()){
-                listBook.erase(listBook.begin() + i);
-                for(int j = i;j < listBook.size(); j++){
-                    listBook[j] = listBook[j+1];
-                }
-                listBook[listBook.size()] = nullptr;
-                std::cout << "Remove successfully\n";
-                return;
-            }
+        std::cout << "Book's name to search: ";
+        std::string BN;
+        getline(std::cin,BN);
 
+        lib->HelpRemoveBook(BN);
+
+        for(int i =0 ;i < listCollection.size(); i++){
+            listCollection[i]->deleteBook(BN);
+        }
+        for(int i = 0 ; i < MemberList.size(); i++){
+            
         }
     }
-   }
-   catch (const char *error){
+    }
+    catch (const char *error){
         std::cout << "Error!\n" <<  error << "\n";
-   }
+    }
 }
-void Admin::EditBook(std::string SE){
+void Admin::EditBook(Library *lib,std::string SE){
     try{
-    if(listBook.empty())
+    if(lib->listBook.empty())
         throw"Empty list to delete";
         
     else{
-        for(int i = 0 ; i < listBook.size(); i++){
-            if(listBook[i]->getSeNum() == SE){
+        for(int i = 0 ; i < lib->listBook.size(); i++){
+            if(lib->listBook[i]->getSeNum() == SE){
                 std::cout << "Edit Menu\n";
                 std::cout << "1.Tittle\n";
                 std::cout << "2.SerialNumber\n";
@@ -51,7 +103,7 @@ void Admin::EditBook(std::string SE){
                           << "7.visibilityStatus\n"
                           << "8.Exit Edit Mode\n";
             bool exitMenu = false;          
-                while(!exitMenu)
+                while(exitMenu)
                 {
                 std::cout << "Choose option: ";
                 int option;
@@ -71,7 +123,7 @@ void Admin::EditBook(std::string SE){
                         std::string T;
                         std::cout << "New Title: ";
                         getline(std::cin, T);
-                        listBook[i]->setTittle(T);
+                        lib->listBook[i]->setTittle(T);
                         break;
                     }
                     case 2:
@@ -79,7 +131,7 @@ void Admin::EditBook(std::string SE){
                         std::string SE;
                         std::cout << "New serial number: ";
                         getline(std::cin, SE);
-                        listBook[i]->setSerialNum(SE);
+                        lib->listBook[i]->setSerialNum(SE);
                         break;
                     }
                     case 3:
@@ -87,7 +139,7 @@ void Admin::EditBook(std::string SE){
                         std::string a;
                         std::cout << "New author: ";
                         getline(std::cin, a);
-                        listBook[i]->setAuthor(a);
+                        lib->listBook[i]->setAuthor(a);
                         break;
                     }
                     case 4:
@@ -95,7 +147,7 @@ void Admin::EditBook(std::string SE){
                         int p;
                         std::cout << "New page number: ";
                         std::cin >> p;
-                        listBook[i]->setPageNum(p);
+                        lib->listBook[i]->setPageNum(p);
                         break;
                     }
                     case 5:
@@ -103,7 +155,7 @@ void Admin::EditBook(std::string SE){
                         int fp;
                         std::cout << "New free page number: ";
                         std::cin >> fp;
-                        listBook[i]->setFreePage(fp);
+                        lib->listBook[i]->setFreePage(fp);
                         break;
                     }
                     case 6:
@@ -111,18 +163,18 @@ void Admin::EditBook(std::string SE){
                         int c;
                         std::cout << "New category: ";
                         std::cin >> c;
-                        listBook[i]->setCategory(c);
+                        lib->listBook[i]->setCategory(c);
                         break;
                     }
                     case 7:
                     {
-                        if(listBook[i]->getVisibilityStatus() == true) {
-                            std::cout << "Current VisibilityStatus: " << listBook[i]->getVisibilityStatus()<< "\n";
-                            listBook[i]->setVisibilityStatus(false);
+                        if(lib->listBook[i]->getVisibilityStatus() == true) {
+                            std::cout << "Current VisibilityStatus: " << lib->listBook[i]->getVisibilityStatus()<< "\n";
+                            lib->listBook[i]->setVisibilityStatus(false);
                         }
                         else {
-                            listBook[i]->setVisibilityStatus(true);
-                            std::cout << "New VisibilityStatus: " << listBook[i]->getVisibilityStatus()<< "\n";
+                            lib->listBook[i]->setVisibilityStatus(true);
+                            std::cout << "New VisibilityStatus: " << lib->listBook[i]->getVisibilityStatus()<< "\n";
                         }
                         break; 
                     }
@@ -147,48 +199,84 @@ void Admin::EditBook(std::string SE){
         std::cout << "Error!\n" <<  error << "\n";
    }
 }
-void Admin::EditCollection(Collection *c)
-{
+void Admin::EditCollection(Library *lib, int &ID)
+{   
+    std::cout << "Search for your collection needed to edit\n";
+    std::cout << "Enter collection name or collection's ID: \n";
+    int ID;
+    std::string;
+    for(int i = 0 ; i < listCollection.size(); i++)
+    {
+        if(listCollection[i]->getCoID() == ID){
+            std::cout << "Edit Menu: \n"
+                      << "1.ID\n"
+                      << "2.Name\n"
+                      << "3.Add new book\n"
+                      << "4.Remove book\n"
+                      << "5.Exit\n";
+            bool out = false;
+            while(out){
+                int option;
+                std::cout << "Choose option: ";
+                std::cin >> option;
+                try{
+                    if(option < 1 || option > 5){
+                        throw " Option is out of range\n";
+                    }
+                    else if(std::cin.fail()){
+                        throw "Invalid input\n";
+                    }
+                    else{
+                        switch (option)
+                        {
+                        {case 1:
+                            int id;
+                            std::cout << "New Co's Id: ";
+                            std::cin >> id;
+                            listCollection[i]->setCoID(id);
+                            break;
+                        }
+                        {case 2:
+                            std::string newN;
+                            std::cout << "New Co's name: ";
+                            getline(std::cin, newN);
+                            listCollection[i]->setCoName(newN);
+                            break;
+                        }
+                        {case 3:
+                            std::cout << "Enter name of book you want to add: ";
+                            std::string bookName;
+
+                        }
+                        }
+                    }
+                }
+                catch(const char * err){
+                    std::cout << "Error: " << err << "\n";
+                }
+            }
+        }
+    }
     
 }
-void Admin::createCollection(Book b)
+void Admin::createCollection(Book *b, Collection *col)
 {
 }
 void Admin::deleteCollection(Collection *c){
 
 }
-void Admin::readBook(const Book &b){}
-void Admin::displayBookList(){
-    if(listBook.empty()){
+void Admin::readBook(const Book *b){}
+void Admin::displayBookList(Library *lib){
+    if(lib->listBook.empty()){
         std::cout << "Empty list\n";
     }
     else{
-        for(int i = 0 ;i < listBook.size(); i++){
-            listBook[i]->display();
+        for(int i = 0 ;i < lib->listBook.size(); i++){
+            lib->listBook[i]->display();
         }
     }
 }
-bool Admin::checkMemberExist(std::string username)
-{
-    for (int i = 0; i < MemberList.size(); i++) {
-        if ( MemberList[i]->getU() == username){
-            return true;
-        }
-    }
-    return false;
-}
-void Admin::addMember(std::string username, std::string password, std::string phone, std::string fullname)
-{
-    if (checkMemberExist(username)) {
-        std::cout << "Error: Member with username " << username << " already exists." << std::endl;
-        return;
-    }
-
-    Member* newMember = new Member(username, password, phone, fullname);
-    MemberList.push_back(newMember);
-    std::cout << "New member with ID " << userCount << " has been added." << std::endl;
-}
-std::vector<Collection *> Admin::listCollection{};
 std::vector <Member *> Admin::MemberList{};
+std::vector <Collection *> Admin::listCollection{};
 
 
