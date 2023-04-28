@@ -11,9 +11,7 @@ Book *Library::HelpSeachBookT(std::string T)
 {   
     for(int  i = 0; i < listBook.size(); i++){
         if(listBook[i]->getT() == T){
-            Book * b = new Book();
-            *b = *listBook[i];
-            return b;
+            return listBook[i];
         }
     }
     return nullptr;

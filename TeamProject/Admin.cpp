@@ -205,8 +205,9 @@ void Admin::EditBook(Library *lib,std::string SE){
 }
 void Admin::EditCollection(Library *lib)
 {   
-    std::cout << "Search for your collection needed to edit\n";
-    std::cout << "Enter collection's name to delete: \n";
+    std::cout << "\n\n------------------------\n";
+    std::cout << "EditCollection Mode\n";
+    std::cout << "Enter collection's name to edit: \n";
     std::string name;
     getline(std::cin, name);
     for(int i = 0 ; i < listCollection.size(); i++)
@@ -219,7 +220,7 @@ void Admin::EditCollection(Library *lib)
                       << "4.Remove book\n"
                       << "5.Exit\n";
             bool out = false;
-            while(out){
+            while(out == false){
                 int option;
                 std::cout << "Choose option: ";
                 std::cin >> option;
@@ -237,21 +238,50 @@ void Admin::EditCollection(Library *lib)
                             int id;
                             std::cout << "New Co's Id: ";
                             std::cin >> id;
+                            std::cin.ignore();
                             listCollection[i]->setCoID(id);
                             break;
                         }
                         {case 2:
                             std::string newN;
                             std::cout << "New Co's name: ";
+                            std::cin.ignore();
                             getline(std::cin, newN);
                             listCollection[i]->setCoName(newN);
                             break;
                         }
                         {case 3:
+                            // struggle facing to book not found
                             std::cout << "Enter name of book you want to add: ";
                             std::string bookName;
+                            std::cin >> bookName;
+                            // if(lib->HelpSeachBookT(bookName)!= nullptr){
+                                Book * b = new Book();
+                                *b = lib->HelpSeachBookT(bookName);
+                                if(b != nullptr){
+                                    listCollection[i]->addBookToCollection(b);
+                                    std::cout << "Add book successfully\n";
+                                }
+                                else{
+                                    std::cout << "Book not found to add\n";
+                                }
                             
-                            
+                            break;
+                        }
+                        {
+                        case 4:
+                            std::cout << "Enter name of book you want to delete: \n";
+                            std::string bookName;
+                            std::cin >> bookName;
+                            listCollection[i]->deleteBook(bookName);
+                            break;
+                        }
+                        {
+                            case 5:
+                                std::cout << "Exit Edit Collection Mode\n";
+                                out = true;
+                                break;
+
                         }
                         }
                     }
@@ -265,15 +295,21 @@ void Admin::EditCollection(Library *lib)
             std::cout << "The collection to be edited is not found\n";
         }
     }
+    std::cout << "------------------------\n";
     
 }
 void Admin::createCollection()
-{
+{   
+    std::cout << "\n\n------------------------\n";
+    std::cout << "CreateCollection Mode\n";
     std::cout << "Enter Collection's name: ";
     std::string name;
     getline(std::cin, name);
     Collection * C = new Collection(name);
     listCollection.push_back(C);
+    std::cout << "Exit CreateCollection Mode\n";
+    std::cout << "------------------------\n\n";
+
 }
 void Admin::deleteCollection(){
     std::cout << "Enter Collection's name to delete: ";
@@ -303,7 +339,18 @@ void Admin::displayBookList(Library *lib){
         }
     }
 }
-std::vector <Member *> Admin::MemberList{};
+
+void Admin::displayCollectionList()
+{
+    if(!listCollection.empty()){
+        for(int  i = 0 ; i < listCollection.size(); i++){
+            listCollection[i]->displayCollection();
+        }
+    }
+   
+}
+
+std::vector<Member *> Admin::MemberList{};
 std::vector <Collection *> Admin::listCollection{};
 
 

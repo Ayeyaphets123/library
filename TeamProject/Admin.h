@@ -29,5 +29,7 @@ class Admin : public Registered
         std::vector <Collection *> getCollectionList() const;
         void readBook( const Book *b); 
         void displayBookList(Library *lib);  
+        void displayCollectionList();
+
 };
 #endif

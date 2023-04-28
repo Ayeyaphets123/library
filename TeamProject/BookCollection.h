@@ -10,13 +10,11 @@ class Collection
         int CollectionID;
         std::string CollectionName;
         std::vector<Book *> BookList;
-        Book *HelpSearchBook(std::string);
-        void HelpDeleteBook(std::string);
-        static int CollectionCountID;
+        
     public:
+        static int CollectionCountID;
         Collection() : CollectionID(0), CollectionName(" "){
             BookList.clear();
-            CollectionCountID++;
         }
         Collection(std::string CoName);
         Collection(const Collection &BC);
@@ -25,13 +23,15 @@ class Collection
         void setCoID(int);
         void setCoName(std::string);
         void addBookToCollection(Book *b);
-        void displayCollection(bool signal);
+        void displayCollection();
         void displaySubscriber();
         void deleteBook(std::string);
 
         int getCoID() const;
         std::string getCoName() const;
         std::vector<Book *> getBookList() const;
+
+        Book *HelpSearchBook(std::string);
 
     
 };

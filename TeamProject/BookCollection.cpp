@@ -3,7 +3,14 @@ Collection::Collection( std::string CoName)
 {
     setCoID(CollectionCountID);
     setCoName(CoName);
+    if(!BookList.empty()){
+        for(int i =0  ; i < BookList.size() ;i++){
+            if(BookList[i]) delete BookList[i];
+        }
+
+    }
     BookList.clear();
+    std::vector<Book *> BookList{};
     CollectionCountID++;
 }
 Collection::~Collection()
@@ -34,19 +41,36 @@ void Collection::addBookToCollection(Book *b)
 {
     BookList.push_back(b);
 }
-void Collection::displayCollection(bool signal){
-    if(!BookList.empty())
+void Collection::displayCollection(){
+    if(!BookList.empty()){
         std::cout << "List Book\n";
-        std::cout << "Id " << CollectionID << "\n" << "\t" << "Collection name: " << CollectionName << "\n";
-        if(signal)
-            for(int i = 0 ; i <  BookList.size(); i++){
+        std::cout << "Id " << CollectionID << "\n"  << "Collection name: " << CollectionName << "\n";
+
+        for(int i = 0 ; i <  BookList.size(); i++){
                 std::cout << i + 1 << ". " << BookList[i]->getT() << "\n";
-            }
+        }
+    }
 }
 
 void Collection::deleteBook(std::string N)
 {
-    HelpDeleteBook(N);
+    if(!BookList.empty())
+        for(int i = 0 ; i < BookList.size(); i++){
+            if(N == BookList[i]->getT()){
+                if(i != BookList.size() -1){
+
+                    for(int j = i; j < BookList.size() - 1; j++){
+                        
+                        *BookList[j] = *BookList[j + 1];
+                    }
+                }
+                delete BookList[BookList.size() - 1];
+                BookList.resize(BookList.size() -1);
+                std::cout << "Delete successfully\n";
+                return;
+            }
+        }
+    
 }
 Book *Collection::HelpSearchBook(std::string name)
 {
@@ -58,24 +82,10 @@ Book *Collection::HelpSearchBook(std::string name)
                 return b;
             }
         }
+        return nullptr;
     }
 }
-void Collection::HelpDeleteBook(std::string N)
-{
-    if(!BookList.empty())
-        for(int i = 0 ; i < BookList.size(); i++){
-            if(N == BookList[i]->getT()){
-                delete BookList[i];
-                for(int j = i; j < BookList.size(); j++){
-                    *BookList[j] = *BookList[j + 1];
-                }
-                delete BookList[BookList.size() - 1];
-                BookList.resize(BookList.size() -1);
-                std::cout << "Delete successfully\n";
-                return;
-            }
-        }
-}
-int Collection::CollectionCountID = 0;
+
+int Collection::CollectionCountID = 1;
 
 
