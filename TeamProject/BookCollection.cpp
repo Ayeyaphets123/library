@@ -74,7 +74,7 @@ std::vector<Book *> Collection::getBookList() const
 {
     return BookList;
 }
-void Collection::HelpEdiCollection( bool N_signal, bool ID_signal, bool Add_signal, bool delete_signal, std::string NewCoName, int newID, Book *addB, std::string BookToDelete)
+void Collection::HelpEdiCollection( bool N_signal, bool ID_signal, std::string NewCoName, int newID)
 {
     if(N_signal){
         setCoName(NewCoName);
@@ -82,12 +82,7 @@ void Collection::HelpEdiCollection( bool N_signal, bool ID_signal, bool Add_sign
     if(ID_signal){
         setCoID(newID);
     }
-    if(Add_signal){
-        BookList.push_back(addB);
-    }
-    if(delete_signal){
-        deleteBook(BookToDelete);
-    }
+    
 }
 void Collection::HelpEditBook(std::string bookName, bool T_signal, bool A_signal, bool SE_signal, bool P_signal, bool C_signal, bool FP_signal, bool VS_signal, std::string T, std::string A, std::string SE, int P, int C, int FP)
 {

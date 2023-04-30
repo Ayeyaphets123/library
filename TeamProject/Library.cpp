@@ -64,10 +64,9 @@ Book *Library::HelpSeachBookT(std::string name, int &index)
             }
         }
     }
-    
     return nullptr;
 }
-void Library::HelpRemoveBook(std::string T)
+void Library::HelpRemoveBookInLibrary(std::string T)
 {
     int index;
     if(HelpSeachBookT(T,index)){

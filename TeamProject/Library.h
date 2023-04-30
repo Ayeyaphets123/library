@@ -20,7 +20,8 @@ public:
 
     void searchBookTittle(std::string);
     void searchBookSerialNum(std::string);
-    void HelpRemoveBook(std::string);
+
+    void HelpRemoveBookInLibrary(std::string);
 
     void displayListBook();
     friend class Admin;

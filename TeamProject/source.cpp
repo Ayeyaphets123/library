@@ -76,8 +76,6 @@ int main()
     ptr->addMember(m[2]);
     ptr->createCollection();
     ptr->EditCollection(lib);
-
-
     std::string bname = "cooking";
     int index;
     if(lib->HelpSeachBookT(bname,index)){
@@ -96,7 +94,6 @@ int main()
         else{
             std::cout << "The collection is not found\n";
         }
-    m[0]->displayCollectionList();
     ptr->removeBook(lib);
 return 0;
 }

@@ -126,12 +126,12 @@ void Member::PersonalInformation()
               << "EndYear: " << EndYear << "\n";
               
 }
-void Member::HelpEditCollection(std::string CoName, bool N_signal, bool ID_signal, bool Add_signal, bool delete_signal, std::string NewCoName, int newID,Book *addB, std::string BookToDelete)
+void Member::HelpEditCollection(std::string CoName, bool N_signal, bool ID_signal,std::string NewCoName, int newID)
 {
     if(!CollectionList.empty()){
         for(int i = 0 ; i < CollectionList.size(); i++){
             if(CoName == CollectionList[i]->getCoName()){
-                CollectionList[i]->HelpEdiCollection(N_signal, ID_signal, Add_signal, delete_signal,  NewCoName, newID,addB,BookToDelete);
+                CollectionList[i]->HelpEdiCollection(N_signal, ID_signal, NewCoName, newID);
             }
         }
     }

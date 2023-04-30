@@ -32,7 +32,7 @@ class Admin : public Registered
         
         void displayCollectionList();
 
-        void addMember(Member*);
+        void addMember(Member *);
         void showListMember();
 
         Collection * HelpSearchCollection(std::string);

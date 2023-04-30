@@ -25,7 +25,7 @@ class Member : public Registered
 
         void returnBook();
 
-        void subscribeCollection( Collection *S);
+        void subscribeCollection(Collection *S);
 
         void unSubscribeCollection();
 
@@ -46,7 +46,7 @@ class Member : public Registered
 
         void PersonalInformation();
 
-        void HelpEditCollection(std::string CoName, bool N_signal, bool ID_signal, bool Add_signal, bool delete_signal, std::string NewCoName, int newID, Book *addB, std::string deleteBook);
+        void HelpEditCollection(std::string CoName, bool N_signal, bool ID_signal, std::string NewCoName, int newID);
         void HelpEditBook(std::string BookName, bool T_signal, bool A_signal ,bool SE_signal,bool P_signal ,bool C_signal ,bool FP_signal ,bool VS_signal, std::string T, std::string A, std::string SE, int P, int C, int FP);
 };
 
