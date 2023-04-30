@@ -18,21 +18,25 @@ class Collection
         }
         Collection(std::string CoName);
         Collection(const Collection &BC);
+        Collection &operator=(const Collection &BC);
         ~Collection();
         
         void setCoID(int);
         void setCoName(std::string);
         void addBookToCollection(Book *b);
+
         void displayCollection();
-        void displaySubscriber();
+        
         void deleteBook(std::string);
 
         int getCoID() const;
         std::string getCoName() const;
         std::vector<Book *> getBookList() const;
 
-        Book *HelpSearchBook(std::string);
-
+        Book *HelpSearchBook(std::string, int &index);
+        void HelpEdiCollection( bool N_signal, bool ID_signal, bool Add_signal, bool delete_signal, std::string NewCoName, int newID,Book *addB, std::string BookToDelete);
+        void HelpEditBook(std::string bookName, bool T_signal, bool A_signal ,bool SE_signal,bool P_signal ,bool C_signal ,bool FP_signal ,bool VS_signal, std::string T, std::string A, std::string SE, int P, int C, int FP);
+       
     
 };
 

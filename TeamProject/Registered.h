@@ -28,6 +28,8 @@ class Registered : public User
         std::string getF() const;
         void login(int, std::string U, std::string P);
         void logout();   
+
+        virtual void PersonalInformation() = 0;
         
 };
 #endif

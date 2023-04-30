@@ -11,7 +11,7 @@ class Guest : public User
     public:
         Guest();
         ~Guest();
-        void Register(std::string username,std::string password,std::string phone,std::string fullname);
+        Member* Register();
         void setID(int);
         int getID() const;
         void readBook(const Book *b);

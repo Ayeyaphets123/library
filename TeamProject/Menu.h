@@ -1,29 +1,36 @@
-#include <string>
-#include <vector>
 #ifndef MENU_H
 #define MENU_H
-class Menu
-{
-    private:
-        std::string Name;
-        std::string description;
-        std::vector<Menu*> subMenu;
-        int Action;
-    public:
-        Menu();
-        Menu(std::string n, std::string d, int action = -1);
-        ~Menu();
-        void setName(std::string);
-        std::string getname()const;
-        void setDes(std::string);
-        std::string getDes() const;
-        void displayMenu();
-        void addSubMenu(Menu *m);
-        int chooseOption();
-        Menu * getSubMenu (int index);
-        void setAction(int);
-        int getAction() const;
-        
-};
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
 
-#endif
+// template <void (*T)()>
+
+class Menu {
+private:
+    string name;
+    string description;
+    vector<Menu*> subMenu;
+    int action;
+public:
+    Menu();
+    Menu(string name, string desc, int action =-1);
+    ~Menu();
+
+    string getName();
+    void setName(string n);
+
+    string getDescription();
+    void setDescription(string d);
+
+    void displayMenu();
+    void addSubMenu(Menu* m);
+    Menu* getSubMenu(int index);
+
+    int promptOption(); //ask user to input the option
+
+    int getAction();
+    void setAction(int a);
+};
+#endif 

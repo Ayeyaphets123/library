@@ -13,10 +13,47 @@ Collection::Collection( std::string CoName)
     std::vector<Book *> BookList{};
     CollectionCountID++;
 }
+Collection::Collection(const Collection &BC)
+{
+    Collection * C = new Collection();
+    C->BookList.clear();
+    if(!BC.BookList.empty()){
+        for(int i = 0 ;i < BC.BookList.size(); i++){
+            *C->BookList[i] = *BC.BookList[i];
+        }
+    }
+}
+Collection &Collection::operator=(const Collection &BC)
+{   
+    std::cout << "123\n";
+    if( this == &BC){
+        return *this;
+    }
+    else{
+        this->~Collection();
+        if(!BC.BookList.empty()){
+            for(int i = 0 ;i < BC.BookList.size(); i++){
+                if(BC.BookList[i]){
+                    this->BookList[i]->setAuthor(BC.BookList[i]->getAuthor());
+                    this->BookList[i]->setBorrowedStatus(BC.BookList[i]->getBorrowedStatus());
+                    this->BookList[i]->setCategory(BC.BookList[i]->getCategory());
+                    this->BookList[i]->setFreePage(BC.BookList[i]->getFreePage());
+                    this->BookList[i]->setPageNum(BC.BookList[i]->getPageNum());
+                    this->BookList[i]->setSerialNum(BC.BookList[i]->getSeNum());
+                    this->BookList[i]->setTittle(BC.BookList[i]->getT());
+                    this->BookList[i]->setVisibilityStatus(BC.BookList[i]->getVisibilityStatus());
+
+                }
+            }
+        }
+        return *this;
+    }
+    
+}
 Collection::~Collection()
 {
     if(!BookList.empty()){
-        for(int i = 0 ;i <  BookList.size(); i++){
+        for(int i = 0 ;i < BookList.size(); i++){
             if(BookList[i]) 
                 delete BookList[i];
         }
@@ -37,6 +74,57 @@ std::vector<Book *> Collection::getBookList() const
 {
     return BookList;
 }
+void Collection::HelpEdiCollection( bool N_signal, bool ID_signal, bool Add_signal, bool delete_signal, std::string NewCoName, int newID, Book *addB, std::string BookToDelete)
+{
+    if(N_signal){
+        setCoName(NewCoName);
+    }
+    if(ID_signal){
+        setCoID(newID);
+    }
+    if(Add_signal){
+        BookList.push_back(addB);
+    }
+    if(delete_signal){
+        deleteBook(BookToDelete);
+    }
+}
+void Collection::HelpEditBook(std::string bookName, bool T_signal, bool A_signal, bool SE_signal, bool P_signal, bool C_signal, bool FP_signal, bool VS_signal, std::string T, std::string A, std::string SE, int P, int C, int FP)
+{
+    if(!BookList.empty()){
+        for(int i = 0 ; i < BookList.size() ; i++){
+            if(bookName == BookList[i]->getT()){
+                if(T_signal){
+                    BookList[i]->setTittle(T);
+                }
+                if(A_signal){
+                    BookList[i]->setAuthor(A);
+                    
+                }
+                if(SE_signal){
+                    BookList[i]->setSerialNum(SE);
+                    
+                }
+                if(P_signal){
+                    BookList[i]->setPageNum(P);
+                }
+                if(C_signal){
+                    BookList[i]->setCategory(C);
+                    
+                }
+                if(FP_signal){
+                    BookList[i]->setFreePage(FP);
+                    
+                }
+                if(VS_signal){
+                    if(BookList[i]->getVisibilityStatus() == true)
+                        BookList[i]->setVisibilityStatus(false);
+                    else BookList[i]->setVisibilityStatus(true);
+                }
+            }
+        }
+    }
+}
 void Collection::addBookToCollection(Book *b)
 {
     BookList.push_back(b);
@@ -45,47 +133,37 @@ void Collection::displayCollection(){
     if(!BookList.empty()){
         std::cout << "List Book\n";
         std::cout << "Id " << CollectionID << "\n"  << "Collection name: " << CollectionName << "\n";
-
         for(int i = 0 ; i <  BookList.size(); i++){
-                std::cout << i + 1 << ". " << BookList[i]->getT() << "\n";
+                BookList[i]->display();
         }
     }
+    else{
+        std::cout << "Empty list to display\n";
+    }
 }
-
 void Collection::deleteBook(std::string N)
-{
-    if(!BookList.empty())
-        for(int i = 0 ; i < BookList.size(); i++){
-            if(N == BookList[i]->getT()){
-                if(i != BookList.size() -1){
-
-                    for(int j = i; j < BookList.size() - 1; j++){
-                        
-                        *BookList[j] = *BookList[j + 1];
-                    }
-                }
-                delete BookList[BookList.size() - 1];
-                BookList.resize(BookList.size() -1);
-                std::cout << "Delete successfully\n";
-                return;
-            }
-        }
-    
-}
-Book *Collection::HelpSearchBook(std::string name)
-{
+{   
+    std::cout << "\n--------------------------------\n";
     if(!BookList.empty()){
-        for(int i = 0 ; i < BookList.size(); i++){
-            if(name == BookList[i]->getT()){
-                Book * b = new Book();
-                *b = *BookList[i];
-                return b;
+    for(int i = 0 ; i < BookList.size(); i++){
+        if(N == BookList[i]->getT()){
+            for(int j = i ; j < BookList.size() - 1; j++){
+                *BookList[j] = *BookList[j+1];
             }
+            delete BookList[BookList.size() -1];
+            BookList.resize(BookList.size() -1);
+            std::cout << "Delete Book in Collection successfully\n";
+            return;
         }
-        return nullptr;
     }
-}
+    std::cout << "The Book is not found to be deleted in The Collection\n";
+    }
+    else{
+        std::cout << "Empty collection to delete\n";
+    }
+    std::cout << "--------------------------------\n";
 
+}
 int Collection::CollectionCountID = 1;
 
 

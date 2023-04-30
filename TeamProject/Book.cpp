@@ -12,32 +12,35 @@ Book::Book(std::string T, std::string S, std::string A, int P, int FP, int C, bo
     setVisibilityStatus(VS);
     setBorrowedStatus(BS);
 }
-Book &Book::operator=(Book *b)
+Book &Book::operator=(const Book &b)
 {
-    if(this == b){
+    if(this == &b){
+        return *this;
     }
     else{
-        this->setAuthor(b->getAuthor());
-        this->setTittle(b->getT());
-        this->setSerialNum(b->getSeNum());
-        this->setCategory(b->getCategory());
-        this->setPageNum(b->getPageNum());
-        this->setBorrowedStatus(b->getBorrowedStatus());
-        this->setFreePage(b->getFreePage());
-        this->setVisibilityStatus(b->getVisibilityStatus());
+        this->~Book();
+        this->setAuthor(b.getAuthor());
+        this->setTittle(b.getT());
+        this->setSerialNum(b.getSeNum());
+        this->setCategory(b.getCategory());
+        this->setPageNum(b.getPageNum());
+        this->setBorrowedStatus(b.getBorrowedStatus());
+        this->setFreePage(b.getFreePage());
+        this->setVisibilityStatus(b.getVisibilityStatus());
+        return *this;
     }
-    return *this;
 }
-Book::Book(const Book *b)
+Book::Book(const Book &b)
 {
-    this->setAuthor(b->getAuthor());
-    this->setTittle(b->getT());
-    this->setSerialNum(b->getSeNum());
-    this->setCategory(b->getCategory());
-    this->setPageNum(b->getPageNum());
-    this->setBorrowedStatus(b->getBorrowedStatus());
-    this->setFreePage(b->getFreePage());
-    this->setVisibilityStatus(b->getVisibilityStatus());
+    Book * newB = new Book();
+    newB->setAuthor(b.getAuthor());
+    newB->setTittle(b.getT());
+    newB->setSerialNum(b.getSeNum());
+    newB->setCategory(b.getCategory());
+    newB->setPageNum(b.getPageNum());
+    newB->setBorrowedStatus(b.getBorrowedStatus());
+    newB->setFreePage(b.getFreePage());
+    newB->setVisibilityStatus(b.getVisibilityStatus());
 }
 void Book::setTittle(std::string T)
 {

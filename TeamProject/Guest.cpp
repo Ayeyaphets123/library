@@ -5,9 +5,19 @@ Guest::Guest() : User(){
 }
 Guest::~Guest(){}
 
-void Guest::Register( std::string username, std::string password, std::string phone, std::string fullname)
+Member* Guest::Register()
 {
-    
+    std::string US, PS, phone, FN;
+    std::cout << "Enter Your UserName account: ";
+    std::cin >> US;
+    std::cout << "Enter Your PassWord account: ";
+    std::cin >> PS;
+    std::cout << "Enter your phone Number: ";
+    std::cin >> phone;
+    std::cout << "Enter your fullname: ";
+    std::cin >> FN;
+    Member * newM = new Member (US,PS,phone,FN);
+    return newM;
 }
 void Guest::setID(int id){
     if(id > 0) ID = id;
@@ -17,6 +27,6 @@ int Guest::getID() const{
 }
 void Guest::readBook(const Book *b) 
 {
-
+    
 }
 int Guest::countID = 0;

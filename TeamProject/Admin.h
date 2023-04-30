@@ -20,16 +20,22 @@ class Admin : public Registered
         static Admin* CreatAdmin();
         static void addBook(Library *lib, Book *b);
         static void removeBook(Library *lib);
-        static void EditBook(Library *lib, std::string SeNum);
+        static void EditBook(Library *lib);
         static void EditCollection(Library *lib);
         static void createCollection();
         static void deleteCollection(); 
 
         std::vector <Member *> getMemberList() const;
         std::vector <Collection *> getCollectionList() const;
+
         void readBook( const Book *b); 
-        void displayBookList(Library *lib);  
+        
         void displayCollectionList();
 
+        void addMember(Member*);
+        void showListMember();
+
+        Collection * HelpSearchCollection(std::string);
+        void PersonalInformation();
 };
 #endif

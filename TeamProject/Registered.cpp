@@ -46,5 +46,5 @@ void Registered::login(int lv, std::string user, std::string pass){
 }
 void Registered::logout(){
 
-} 
+}
 int Registered::userCount = 0;

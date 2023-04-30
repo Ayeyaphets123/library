@@ -7,20 +7,22 @@ class Library
 private:
 
     std::vector<Book *> listBook;
-    void HelpRemoveBook(std::string);
-    Book *HelpSeachBookT(std::string);
-    Book *HelpSeachBookSE(std::string);
-    Book *HelpSeachBookSE(std::string, int &index);
 
 public:
     Library()
-    {
+    {   
         listBook.clear();
     }
     ~Library();
+
+    Book *HelpSeachBookSE(std::string);
+    Book *HelpSeachBookT(std::string, int &index);
+
     void searchBookTittle(std::string);
     void searchBookSerialNum(std::string);
+    void HelpRemoveBook(std::string);
 
+    void displayListBook();
     friend class Admin;
 };
 #endif
