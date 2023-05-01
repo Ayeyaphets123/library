@@ -1,5 +1,5 @@
-#include "Book.h"
 #include <iostream>
+#include "Book.h"
 Book::Book()
     : Tittle(" "), serialNumber(" "), author(" "), pageNumber(0), freePageReading(0),category(0), visibilityStatus(false), borrowedStatus(false){}
 Book::Book(std::string T, std::string S, std::string A, int P, int FP, int C, bool VS, bool BS){
@@ -97,15 +97,16 @@ bool Book::getBorrowedStatus() const{
 
 void Book::display()
 {   
-    std::cout << "============\n";
+    std::cout << "==========================\n";
     std::cout << "Tittle: " << Tittle << "\n"
-              << "serialNumber: " << serialNumber << "\n"
-              << "author: " << author << "\n"
-              << "pageNumber: " << pageNumber << "\n"
-              << "freePageReading: " << freePageReading << "\n"
-              << "category: " << category << "\n"
-              << "visibilityStatus: " << visibilityStatus << "\n"
-              << "borrowedStatus: " << borrowedStatus << "\n";
-    std::cout << "============\n";
+              << "SerialNumber: " << serialNumber << "\n"
+              << "Author: " << author << "\n"
+              << "PageNumber: " << pageNumber << "\n"
+              << "FreePageReading: " << freePageReading << "\n"
+              << "Category: " << category << "\n"
+              << "VisibilityStatus: " << visibilityStatus << "\n"
+              << "BorrowedStatus: " << borrowedStatus << "\n";
+    std::cout << "==========================\n";
+    
 
 }

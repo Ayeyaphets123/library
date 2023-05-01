@@ -66,14 +66,22 @@ void Member::unSubscribeCollection(){
     std::string CN;
     std::cin >> CN;
     if(!CollectionList.empty()){
-        for(int i = 1 ; i < CollectionList.size(); i++){
+        for(int i = 0 ; i < CollectionList.size(); i++){
             if(CN == CollectionList[i]->getCoName()){
-                CollectionList[i]->~Collection();
+                if(i != CollectionList.size() -1){
+                    for(int j = i; j < CollectionList.size() -1 ; j++){
+    
+                        *CollectionList[j] = *CollectionList[j+1];
+                        
+                    }
+                }
+                CollectionList[CollectionList.size() - 1]->~Collection();
+                CollectionList.resize(CollectionList.size() - 1);
                 std::cout << "Unsubscribe successfully\n";
                 return;
-            }
         }
-        std::cout << "The Collection is not found\n";
+    }
+        std::cout << "The Collection is not found for unsubscribing \n";
     }
     else{
         std::cout << "You have not subscribe any collection to unsubscribe\n";
@@ -91,7 +99,7 @@ void Member::readBook(const Book *b){
     if(b->getVisibilityStatus() == true)
         std::cout << "Member are reading " << b->getT() << "\n";    
     else{
-        std::cout << "member are not allowed to read this Book\n";
+        std::cout << "Member are not allowed to read this Book\n";
     }
 }
 

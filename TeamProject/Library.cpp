@@ -18,7 +18,7 @@ void Library::searchBookTittle()
         HelpSeachBookT(T,index)->display();
     }
     else{
-        std::cout << "Book " << T << " not found\n";
+        std::cout << "Book " << T << " not found in library\n";
     }
 
 }
@@ -44,7 +44,7 @@ void Library::searchBookSerialNum()
         HelpSeachBookSE(SE)->display();
     }
     else{
-        std::cout << "Book " << SE << " not found\n";
+        std::cout << "Book " << SE << " not found in library\n";
     }
 }
 void Library::displayListBook()
@@ -52,6 +52,7 @@ void Library::displayListBook()
     if(!listBook.empty()){
         for(int i = 0 ;i < listBook.size(); i++){
             listBook[i]->display();
+            std::cout <<"\n";
         }
     }
     else{
@@ -86,7 +87,7 @@ void Library::HelpRemoveBookInLibrary(std::string T)
         return;
     }
     else{
-    std::cout << "The book is not in the list to delete\n";
+    std::cout << "The book is not in the library to delete\n";
     }
     
     

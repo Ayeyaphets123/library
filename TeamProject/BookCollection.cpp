@@ -19,7 +19,7 @@ Collection::Collection(const Collection &BC)
     C->BookList.clear();
     if(!BC.BookList.empty()){
         for(int i = 0 ;i < BC.BookList.size(); i++){
-            *C->BookList[i] = *BC.BookList[i];
+            C->BookList[i] = BC.BookList[i];
         }
     }
 }
@@ -123,15 +123,16 @@ void Collection::addBookToCollection(Book *b)
     BookList.push_back(b);
 }
 void Collection::displayCollection(){
+    
+    std::cout << "List Book\n";
+    std::cout << "Id " << CollectionID << "\n"  << "Collection name: " << CollectionName << "\n";
     if(!BookList.empty()){
-        std::cout << "List Book\n";
-        std::cout << "Id " << CollectionID << "\n"  << "Collection name: " << CollectionName << "\n";
         for(int i = 0 ; i <  BookList.size(); i++){
                 BookList[i]->display();
         }
     }
     else{
-        std::cout << "Empty list to display\n";
+        std::cout << "Empty Collection << " << CollectionName<< " to display\n";
     }
 }
 std::string Collection::deleteBook(std::string N)
@@ -147,14 +148,14 @@ std::string Collection::deleteBook(std::string N)
             }
             delete BookList[BookList.size() -1];
             BookList.resize(BookList.size() -1);
-            std::cout << "Delete Book in Collection successfully\n";
+            std::cout << "Delete Book in Collection <" << getCoName() << "> successfully\n";
             return N;
         }
     }
-    std::cout << "The Book is not found to be deleted in The Collection\n";
+    std::cout << "The Book is not found to be deleted in The Collection " << getCoName() << "\n";
     }
     else{
-        std::cout << "Empty collection to delete\n";
+        std::cout << "Empty collection < " << getCoName() << " > to delete\n";
     }
     std::cout << "--------------------------------\n";
     return "not found";

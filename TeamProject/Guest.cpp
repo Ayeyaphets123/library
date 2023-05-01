@@ -29,7 +29,7 @@ int Guest::getID() const{
 void Guest::readBook(const Book *b) 
 {
     if(b->getVisibilityStatus() == true)
-        std::cout << "Guest are allowed to read " << b->getFreePage() << "of this book\n";      
+        std::cout << "Guest are allowed to read " << b->getFreePage() << " free pages of this book\n";      
     else
         std::cout << "member are not allowed to read this Book\n";
 }

@@ -7,42 +7,46 @@
 #include "Member.cpp"
 #include "Guest.cpp"
 #include "Book.cpp"
-#include "Menu.cpp"
 #include "BookCollection.cpp"
 using namespace std;
 int main()
 {   
-
     Library * lib = new Library();
     Admin * ptr = new Admin("admin123","admin123","0913046458","Lam tan Dai");
-    Book * b[10] = {
-        new Book("America","123456","lam tan dai",300,10,1,true,false),
-        new Book("robot","234567","king",432,10,2,true, false),
-        new Book("cooking","345676","queen",200,10,1,true, false),
-        new Book("card","345676","queen",200,10,1,true, false),
-        new Book("computer","345676","queen",200,10,1,true, false),
-        new Book("plastic","345676","queen",200,10,1,true, false),
-        new Book("ocean","345676","queen",200,10,1,true, false),
-        new Book("building","345676","queen",200,10,1,true, false),
-        new Book("animal","345676","queen",200,10,1,true, false),
-        new Book("electricity","345676","queen",200,10,1,true, false),
+    Book * b[10] = {    
+        new Book("America","123456","Lam Tan Dai",300,10,1,true,false),
+        new Book("Robot","234567","King",432,10,2,true, false),
+        new Book("Cooking","345676","Queen",200,10,1,true, false),
+        new Book("Card","726384","Magic",200,10,1,true, false),
+        new Book("Computer","863561","Chef",200,10,1,true, false),
+        new Book("Plastic","096453","Mr.Bean",200,10,1,true, false),
+        new Book("Ocean","075812","Artist",200,10,1,true, false),
+        new Book("Building","661199","Scientist",200,10,1,true, false),
+        new Book("Animal","990011","Ron",200,10,1,true, false),
+        new Book("Electricity","231451","Pep",200,10,1,true, false),
     };
     for(int i = 0 ; i < 10; i++){
         ptr->addBook(lib,b[i]);
     }
 
-    // Collection* sampleCollection = new Collection("Sample Book Collection");
-    // sampleCollection->addBookToCollection(b[0]);
-    // sampleCollection->addBookToCollection(b[1]);
-    // sampleCollection->addBookToCollection(b[2]);
+    Collection* sampleCollection = new Collection("Sample Book Collection");
+    for(int i = 0 ; i < 3; i++){
+        Book *NB3 = new Book();
+        *NB3 = *b[i];
+        sampleCollection->addBookToCollection(NB3);
+        
+    }
+    ptr->addCollection(sampleCollection);
 
-    Collection * C[3] = {
+    Collection * C[5] = {
         new Collection("C1"),
         new Collection("C2"),
-        new Collection("C3")
+        new Collection("C3"),
+        new Collection("C4"),
+        new Collection("C5")
        
     };
-    for(int i = 0 ; i < 3; i++){
+    for(int i = 0 ; i < 5; i++){
         Book *NB1 = new Book();
         *NB1 = *b[i];
         C[i]->addBookToCollection(NB1);
@@ -50,92 +54,31 @@ int main()
         *NB2 = *b[i+1];
         C[i]->addBookToCollection(NB2);
     }
-    // ptr->addCollection(sampleCollection);
-    for(int i = 0 ; i < 3; i++){
+    // 
+    for(int i = 0 ; i < 5; i++){
         ptr->addCollection(C[i]);
     }
 
     // std::cout << "list Collection size: " << ptr->getCollectionList().size() << "\n";
     Guest* guest = new Guest();
     Member * m[1] = {
-        new Member("member1", "member1", "0367995350","hung"),
-        
+        new Member("member1", "member1", "0367995350","Alex"),
     };
 
     ptr->addMember(m[0]);
-    // ptr->createCollection();
-    // ptr->EditCollection(lib);
 
-    // std::string bookBorrowed;
-    // std::cout << "Enter Book to borrowed ";
-    // std::cin >> bookBorrowed;
-    // int index;
-    // if(lib->HelpSeachBookT(bookBorrowed,index)){
-    //     if(lib->HelpSeachBookT(bookBorrowed,index)->getBorrowedStatus() == false){
-    //         m[0]->borrowBook(lib->HelpSeachBookT(bookBorrowed,index));
-    //         lib->HelpSeachBookT(bookBorrowed,index)->setBorrowedStatus(true);
-    //         // ...
-    //     }
-    //     else{
-    //         std::cout << "This book has been borrowed\n";
-    //     }
-    // } 
-    // else{
-    //     std::cout << "the Book is not found\n";
-    // }
-    // m[0]->displayCollectionList();
-    // std::cout << "Enter Book to borrowed ";
-    // std::cin >> bookBorrowed;
-    // if(lib->HelpSeachBookT(bookBorrowed,index)){
-    //     if(lib->HelpSeachBookT(bookBorrowed,index)->getBorrowedStatus() == false){
-    //         m[1]->borrowBook(lib->HelpSeachBookT(bookBorrowed,index));
-    //         lib->HelpSeachBookT(bookBorrowed,index)->setBorrowedStatus(true);
-    //         // ...
-    //     }
-    //     else{
-    //         std::cout << "This book has been borrowed\n";
-    //     }
-    // } 
-    // else{
-    //     std::cout << "the Book is not found\n";
-    // }
-    
-    // std::cout << "Enter Collection's name to search: ";
-    // std::cin >> Cname;
-    //     if(ptr->HelpSearchCollection(Cname)){
-    //         m[1]->subscribeCollection(ptr->HelpSearchCollection(Cname));
-    //     }
-    //     else{
-    //         std::cout << "The collection is not found\n";
-    //     }
-         
-    // std::cout << "Enter Collection's name to search: ";
-    // std::cin >> Cname;
-    //     if(ptr->HelpSearchCollection(Cname)){
-    //         m[2]->subscribeCollection(ptr->HelpSearchCollection(Cname));
-    //     }
-    //     else{
-    //         std::cout << "The collection is not found\n";
-    //     }
 
-    // lib->displayListBook();
-    // ptr->EditCollection(lib);
-    // ptr->EditCollection(lib);
-    // ptr->EditCollection(lib);
-    // ptr->showListMember();
-    // ptr->displayCollectionList(ptr->getAccessibilityLevel());
-    
-
+    //menu starts from here
     bool quit = false;
     while (!quit) {
         system("cls");
-        cout << "Main menu" << endl;
-        cout << "1. Admin" << endl;
-        cout << "2. Member" << endl;
-        cout << "3. Guest" << endl;
-        cout << "4. Exit" << endl;
+        cout << " ==== MAIN MENU ====" << endl;
+        cout << "1. ADMIN" << endl;
+        cout << "2. MEMBER" << endl;
+        cout << "3. GUEST" << endl;
+        cout << "4. EXIT" << endl;
         int choice;
-        cout << "Enter your choice: ";
+        cout << "ENTER YOUR ROLE (1-4): ";
         cin >> choice;
             switch(choice){
             case 1:
@@ -145,8 +88,8 @@ int main()
                 system("cls");
                 bool adminQuit = false;
                 while (!adminQuit) {
-                    
-                    cout << "Admin Menu" << endl;
+                    cout << "WELCOME ADMIN! HOW ARE YOU TODAY?" << endl;
+                    cout << " ==== ADMIN MENU ====" << endl;
                     cout << "1. BOOK" << endl;
                     cout << "2. COLLECTION" << endl;
                     cout << "3. MEMBER" << endl;
@@ -154,13 +97,14 @@ int main()
                     cout << "5. LOG OUT" << endl;
 
                     int adminChoice;
-                    cout << "Enter your choice: ";
+                    cout << "GO TO (1-5): ";
                     cin >> adminChoice;
                     switch(adminChoice){
                         case 1:
                         {  
                             bool bookChoice = false;
                             while (!bookChoice){
+                                cout << "==== ADMIN'S BOOKS MENU ====" << endl;
                                 cout << "1. Display Library Book" << endl;
                                 cout << "2. Add Book" << endl;
                                 cout << "3. Remove Book" << endl;
@@ -168,7 +112,7 @@ int main()
                                 cout << "5. Exit" << endl;
 
                                 int BC;
-                                cout << "Enter your choice: ";
+                                cout << "Enter your choice (1-5): ";
                                 cin >> BC;
                         
                                 switch(BC){
@@ -184,7 +128,7 @@ int main()
                                         string BN, title, serialNumber, author;
                                         int pageNumber, freePageReading, category;
                                         bool visibilityStatus, borrowedStatus;
-
+                                        std::cout << "Please fill Book's information below\n";
                                         cin.ignore();
                                         cout << "Enter book title: ";
                                         getline(cin, title);
@@ -239,6 +183,7 @@ int main()
                         {
                             bool collectionChoice = false;
                             while (!collectionChoice){
+                                cout << "==== ADMIN'S COLLECTION MENU ====" << endl;
                                 cout << "1. Display Collection List" << endl;
                                 cout << "2. Create Collection" << endl;
                                 cout << "3. Edit Collection" << endl;
@@ -246,7 +191,7 @@ int main()
                                 cout << "5. Exit" << endl;
 
                                 int CC;
-                                cout << "Enter your choice: ";
+                                cout << "Enter your choice (1-5): ";
                                 cin >> CC;
 
                                 switch(CC){
@@ -287,11 +232,12 @@ int main()
                         {
                             bool memberChoice = false;
                             while (!memberChoice){
+                                cout << "==== SHOW MEMBER MENU ====" << endl;
                                 cout << "1. Display Member List" << endl;
                                 cout << "2. Exit" << endl;
 
                                 int MC;
-                                cout << "Enter your choice: ";
+                                cout << "Enter your choice(1-2): ";
                                 cin >> MC;
 
                                 switch(MC){
@@ -314,11 +260,12 @@ int main()
                         {
                            bool adminChoice = false;
                             while (!adminChoice){
+                                cout << " ==== CREATE ADMIN MENU ====" << endl;
                                 cout << "1. Create Admin" << endl;
                                 cout << "2. Exit" << endl;
 
                                 int AC;
-                                cout << "Enter your choice: ";
+                                cout << "Enter your choice (1-2): ";
                                 cin >> AC;
 
                                 switch(AC){
@@ -363,13 +310,14 @@ int main()
                 ptr->login();
                 bool memberQuit = false;
                 while (!memberQuit) {
-                    cout << "Member Menu" << endl;
+                    cout << "WELCOME MEMBER! HOW ARE YOU TODAY?" << endl;
+                    cout << "==== MEMBER MENU ====" << endl;
                     cout << "1. BOOK" << endl;
                     cout << "2. COLLECTION" << endl;
                     cout << "3. LOG OUT" << endl;
 
                     int memberChoice;
-                    cout << "Enter your choice: ";
+                    cout << "GO TO (1-3): ";
                     cin >> memberChoice;
                 
                     switch(memberChoice){
@@ -377,6 +325,7 @@ int main()
                         {   
                             bool bookChoice = false;
                             while (!bookChoice){
+                                cout << "==== MEMBER BOOK'S MENU ====" << endl;
                                 cout << "1. Search Book by Title" << endl;
                                 cout << "2. Search Book by Serial Number" << endl;
                                 cout << "3. Display Borrowed List" << endl;
@@ -386,7 +335,7 @@ int main()
                                 cout << "7. Exit" << endl;
 
                                 int BC;
-                                cout << "Enter your choice: ";
+                                cout << "Enter your choice (1-7): ";
                                 cin >> BC;
 
                                 switch(BC){
@@ -411,7 +360,7 @@ int main()
                                     }
                                     case 4:
                                     {   
-                                       std::cout << "Enter Book to borrowed: ";
+                                       std::cout << "Enter Book to borrow: ";
                                        std::string bookBorrowed;
                                        std::cin >> bookBorrowed;
                                        int index;
@@ -423,6 +372,7 @@ int main()
                                                     m[0]->borrowBook(b);
                                                     lib->HelpSeachBookT(bookBorrowed,index)->setBorrowedStatus(true);
                                                     b->setBorrowedStatus(true);
+                                                    std::cout << "You have borrowed the book\n";
                                                     // ...
                                                 }
                                                 else{
@@ -431,7 +381,7 @@ int main()
                                             } 
                                         }
                                         else{
-                                            std::cout << "the Book is not found\n";
+                                            std::cout << "The Book is not found\n";
                                         } 
                                         break;
                                     }
@@ -448,7 +398,7 @@ int main()
                                     case 6:
                                     {
                                         system("cls");
-                                        std::cout << "Enter BookName that you want to read  ";
+                                        std::cout << "Enter book name that you want to read: ";
                                         std::string readBook;
                                         std::cin >> readBook;
                                         Book * b = new Book();
@@ -458,9 +408,13 @@ int main()
                                             m[0]->readBook(b); 
                                         } 
                                         else{
-                                            std::cout << "the Book is not found\n";
+                                            std::cout << "The Book is not found\n";
                                         } 
-                                        break;
+                                        cout << "Enter anything to return Member's Menu: ";
+                                        string ch;
+                                        cin >> ch;
+                                        if (ch != "-1")
+                                            break;
                                     }
                                     case 7:
                                     {
@@ -480,6 +434,7 @@ int main()
                         {
                             bool collectionChoice = false;
                             while (!collectionChoice){
+                                cout << "==== MEMBER COLLECTION'S MENU ====" << endl;
                                 cout << "1. Display Library Collection List" << endl;
                                 cout << "2. Display Your SubscribeCollection List" << endl;
                                 cout << "3. Subscribe Collection" << endl;
@@ -487,7 +442,7 @@ int main()
                                 cout << "5. Exit" << endl;
                         
                                 int CC;
-                                cout << "Enter your choice: ";
+                                cout << "Enter your choice (1-5): ";
                                 cin >> CC;
 
                                 switch(CC){
@@ -505,12 +460,14 @@ int main()
                                     }
                                     case 3: 
                                     {
+
                                         system("cls");
                                         std::string Cname;
                                         std::cout << "Enter Collection's name to search: ";
                                         std::cin >> Cname;
                                         if(ptr->HelpSearchCollection(Cname)){
                                             m[0]->subscribeCollection(ptr->HelpSearchCollection(Cname));
+                                            std::cout << "You have subscribed successfully\n";
                                         }
                                         else{
                                             std::cout << "The collection is not found\n";
@@ -557,19 +514,20 @@ int main()
                     system("cls");
                     bool guestQuit = false;
                     while(!guestQuit)
-                    { 
-                        cout << "Guest Menu" << endl;
+                    {   
+                        cout << "WELCOME MEMBER! HOW ARE YOU TODAY?" << endl;
+                        cout << "==== GUEST MENU ====" << endl;
                         cout << "1. Search Book by Title" << endl;
                         cout << "2. Search Book by Serial Number" << endl;
                         cout << "3. Read Book" << endl;
                         cout << "4. Register" << endl;
                         cout << "5. Exit" << endl;
 
-                        int guessChoice;
-                        cout << "Enter your choice:";
-                        cin >> guessChoice;
+                        int guestChoice;
+                        cout << "Enter your choice (1-5):";
+                        cin >> guestChoice;
 
-                        switch(guessChoice)
+                        switch(guestChoice)
                         {
                             case 1:
                             {
@@ -586,7 +544,9 @@ int main()
                             case 3:
                             {
                                 system("cls");
-                                std::cout << "Enter BookName that you want to read  ";
+                                std::cout << "Sample Books for guest: \n";
+                                sampleCollection->displayCollection();
+                                std::cout << "Enter book name that you want to read: ";
                                 std::string readBook;
                                 std::cin >> readBook;
                                 Book * b = new Book();
@@ -598,9 +558,13 @@ int main()
                                 }
                                 else
                                 {
-                                    std::cout << "the Book is not found\n";
+                                    std::cout << "The Book is not found\n";
                                 }
-                                break;
+                                cout << "Enter anything to return Guest's Menu: ";
+                                string ch;
+                                cin >> ch;
+                                if (ch != "-1")
+                                    break;
                             }
                             case 4:
                             {
@@ -633,7 +597,12 @@ int main()
             }
         }
     }
+    delete ptr;
+    delete guest;
+    delete m;
+    delete [] b;
+    delete sampleCollection;
+    delete [] C;
+
 return 0;
 }
-
-
