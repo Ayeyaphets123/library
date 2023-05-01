@@ -30,17 +30,17 @@ Book &Book::operator=(const Book &b)
         return *this;
     }
 }
-Book::Book(const Book &b)
+Book::Book(const Book *b)
 {
     Book * newB = new Book();
-    newB->setAuthor(b.getAuthor());
-    newB->setTittle(b.getT());
-    newB->setSerialNum(b.getSeNum());
-    newB->setCategory(b.getCategory());
-    newB->setPageNum(b.getPageNum());
-    newB->setBorrowedStatus(b.getBorrowedStatus());
-    newB->setFreePage(b.getFreePage());
-    newB->setVisibilityStatus(b.getVisibilityStatus());
+    newB->setAuthor(b->getAuthor());
+    newB->setTittle(b->getT());
+    newB->setSerialNum(b->getSeNum());
+    newB->setCategory(b->getCategory());
+    newB->setPageNum(b->getPageNum());
+    newB->setBorrowedStatus(b->getBorrowedStatus());
+    newB->setFreePage(b->getFreePage());
+    newB->setVisibilityStatus(b->getVisibilityStatus());
 }
 void Book::setTittle(std::string T)
 {

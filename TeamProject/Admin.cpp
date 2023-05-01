@@ -310,7 +310,8 @@ void Admin::EditCollection(Library *lib)
                         }
                         {case 3:
                             // struggle facing to book not found
-                            std::cout << "Enter name of book you want to add into the Collection: ";
+                            if(!listCollection.empty()){
+                                std::cout << "Enter name of book you want to add into the Collection: ";
                             std::cin >> AddBookName;
                             int index;
                             // if(lib->HelpSeachBookT(bookName)!= nullptr){
@@ -319,7 +320,7 @@ void Admin::EditCollection(Library *lib)
                                 }
                                 Book *b = new Book();
                                 *b = *lib->HelpSeachBookT(AddBookName,index);
-                                if( b != nullptr){
+                                if( lib->HelpSeachBookT(AddBookName,index) != nullptr){
                                     listCollection[i]->addBookToCollection(b);
                                     std::cout << "Add book successfully in the Collection\n";
                                     if(!MemberList.empty()){
@@ -327,7 +328,9 @@ void Admin::EditCollection(Library *lib)
                                             if(!MemberList[i]->getCollectionList().empty()){
                                                 for(int j = 0 ; j < MemberList[i]->getCollectionList().size(); j++){
                                                     if(listCollection[i]->getCoName() == MemberList[i]->getCollectionList()[j]->getCoName()){
-                                                        MemberList[i]->getCollectionList()[j]->addBookToCollection(b);
+                                                        Book *b1 = new Book();
+                                                        *b1 = *b;
+                                                        MemberList[i]->getCollectionList()[j]->addBookToCollection(b1);
                                                     }
                                                 }
                                             }
@@ -340,6 +343,10 @@ void Admin::EditCollection(Library *lib)
                                 if(!listCollection[i]->getBookList().empty()){
                                     listCollection[i]->displayCollection();
                                 }
+                            }
+                            else{
+                                std::cout << "No Collection to Edit\n";
+                            }
                             break;
                         }
                         {
@@ -426,11 +433,18 @@ void Admin::deleteCollection(){
     if(!listCollection.empty()){
         for(int i = 0 ; i < listCollection.size(); i++){
             if(name == listCollection[i]->getCoName()){
-                listCollection[i]->~Collection();
+                if(i != listCollection.size() -1){
+                    for(int j = i; j < listCollection.size() -1 ; j++){
+    
+                        listCollection[j] = listCollection[j+1];
+                        
+                    }
+                }
+                listCollection[listCollection.size() - 1]->~Collection();
+                listCollection.resize(listCollection.size() - 1);
                 std::cout << "Delete Collection successfully\n";
                 return;
         }
-        std::cout << "Delete collection successfully\n";
     }
     }
     else{
@@ -442,11 +456,19 @@ void Admin::deleteCollection(){
 }
 void Admin::readBook(const Book *b){}
 
-void Admin::displayCollectionList()
+void Admin::displayCollectionList(accessibilityType accessibilityLevel)
 {   
     if(!listCollection.empty()){
-        for(int  i = 0 ; i < listCollection.size(); i++){
-            listCollection[i]->displayCollection();
+        if(accessibilityLevel == High){
+            for(int  i = 0 ; i < listCollection.size(); i++){
+                std::cout << "i: " << i<<"\n";
+                listCollection[i]->displayCollection();
+            }
+        }
+        if(accessibilityLevel == Medium){
+            for(int  i = 0 ; i < listCollection.size(); i++){
+                listCollection[i]->getCoName();
+            }
         }
     }
     else{
@@ -467,6 +489,10 @@ void Admin::showListMember()
     }
 }
 
+void Admin::addCollection(Collection * C)
+{
+    listCollection.push_back(C);
+}
 Collection *Admin::HelpSearchCollection(std::string N)
 {
     if(!listCollection.empty()){
@@ -476,9 +502,9 @@ Collection *Admin::HelpSearchCollection(std::string N)
             }
         }
     }
-    else{
-        return nullptr;
-    }
+
+    return nullptr;
+    
 }
 
 void Admin::PersonalInformation()
@@ -496,8 +522,8 @@ void Admin::addMember(Member * m)
     MemberList.push_back(m);
 }
 
-std::vector<Member *> Admin::MemberList{};
-std::vector <Collection *> Admin::listCollection{};
+std::vector<Member *> Admin::MemberList;
+std::vector <Collection *> Admin::listCollection;
 std::vector <Member *> Admin::getMemberList() const{
     return MemberList;
 }

@@ -23,8 +23,9 @@ class Member : public Registered
         ~Member();
         void borrowBook(Book *b);
 
-        void returnBook();
+        std::string returnBook();
 
+        void displayBorrowList();
         void subscribeCollection(Collection *S);
 
         void unSubscribeCollection();

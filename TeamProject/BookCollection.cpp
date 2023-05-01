@@ -24,41 +24,35 @@ Collection::Collection(const Collection &BC)
     }
 }
 Collection &Collection::operator=(const Collection &BC)
-{   
-    std::cout << "123\n";
-    if( this == &BC){
-        return *this;
-    }
-    else{
-        this->~Collection();
-        if(!BC.BookList.empty()){
-            for(int i = 0 ;i < BC.BookList.size(); i++){
-                if(BC.BookList[i]){
-                    this->BookList[i]->setAuthor(BC.BookList[i]->getAuthor());
-                    this->BookList[i]->setBorrowedStatus(BC.BookList[i]->getBorrowedStatus());
-                    this->BookList[i]->setCategory(BC.BookList[i]->getCategory());
-                    this->BookList[i]->setFreePage(BC.BookList[i]->getFreePage());
-                    this->BookList[i]->setPageNum(BC.BookList[i]->getPageNum());
-                    this->BookList[i]->setSerialNum(BC.BookList[i]->getSeNum());
-                    this->BookList[i]->setTittle(BC.BookList[i]->getT());
-                    this->BookList[i]->setVisibilityStatus(BC.BookList[i]->getVisibilityStatus());
+{      
+    if (this != &BC) {
+        CollectionID = BC.CollectionID;
+        CollectionName = BC.CollectionName;
 
-                }
-            }
+        // clear existing book list
+        for (int i = 0 ;i< BookList.size(); i++) {
+            if(BookList[i]) delete BookList[i];
         }
-        return *this;
+        BookList.clear();
+
+        // copy new book list
+        for (int i = 0 ;i< BC.BookList.size(); i++) {
+            Book * b = new Book();
+            *b = *BC.BookList[i];
+            BookList.push_back(b);
+        }
     }
+    return *this;
     
 }
 Collection::~Collection()
 {
     if(!BookList.empty()){
         for(int i = 0 ;i < BookList.size(); i++){
-            if(BookList[i]) 
-                delete BookList[i];
+            if(BookList[i]) delete BookList[i];
         }
-        BookList.clear();
     }
+    BookList.clear();
     CollectionID = 0;
     CollectionName = " ";
     CollectionCountID--;
@@ -140,19 +134,21 @@ void Collection::displayCollection(){
         std::cout << "Empty list to display\n";
     }
 }
-void Collection::deleteBook(std::string N)
+std::string Collection::deleteBook(std::string N)
 {   
     std::cout << "\n--------------------------------\n";
     if(!BookList.empty()){
     for(int i = 0 ; i < BookList.size(); i++){
         if(N == BookList[i]->getT()){
-            for(int j = i ; j < BookList.size() - 1; j++){
-                *BookList[j] = *BookList[j+1];
+            if(i != BookList.size()- 1){
+                for(int j = i ; j < BookList.size() - 1; j++){
+                    *BookList[j] = *BookList[j+1];
+                }
             }
             delete BookList[BookList.size() -1];
             BookList.resize(BookList.size() -1);
             std::cout << "Delete Book in Collection successfully\n";
-            return;
+            return N;
         }
     }
     std::cout << "The Book is not found to be deleted in The Collection\n";
@@ -161,6 +157,7 @@ void Collection::deleteBook(std::string N)
         std::cout << "Empty collection to delete\n";
     }
     std::cout << "--------------------------------\n";
+    return "not found";
 
 }
 int Collection::CollectionCountID = 1;

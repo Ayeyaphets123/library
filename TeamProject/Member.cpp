@@ -1,6 +1,6 @@
 #include "Member.h"
 
-Member::Member( std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType Medium) 
+Member::Member(std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType Medium) 
     : Registered(userName,password,phone, fullname, Medium)
 {
     setStartYear();
@@ -27,35 +27,38 @@ Member::~Member()
 
 void Member::borrowBook(Book *b)
 {
-    CollectionList[0]->getBookList().push_back(b);
+    CollectionList[0]->addBookToCollection(b);
 }
-void Member::returnBook(){
+std::string Member::returnBook(){
     std::cout << "\n\n-------------------\n";
     std::cout << "Enter book's name to return back to library: ";
     std::string bookName;
     std::cin >> bookName;
-    if(!CollectionList[0]->getBookList().empty()){
-        for(int i = 0; i < CollectionList[0]->getBookList().size(); i++ ){
-            if(bookName == CollectionList[0]->getBookList()[i]->getT()){
-                delete CollectionList[0]->getBookList()[i];
-                for(int j = i ; j < CollectionList[0]->getBookList().size(); j++){
-                    *CollectionList[0]->getBookList()[j] = *CollectionList[0]->getBookList()[j+1];
-                }
-                delete CollectionList[0]->getBookList()[CollectionList[0]->getBookList().size() -1];
-                CollectionList[0]->getBookList().resize(CollectionList[0]->getBookList().size() -1);
-                std::cout << "return successfully\n";
-                return;
-            }
-        }
-        std::cout << "Book not found to return\n";
-    }
-    else{
-        std::cout << "Empty borrow list to return book\n";
-    }
+    std::string mess = CollectionList[0]->deleteBook(bookName);
     std::cout << "Exit returnBook Mode\n";
     std::cout << "-------------------\n";
+    if(mess != "not found"){
+        return mess;
+    }
+    else{
+        return "not found";
+    }
+    
 }
-void Member::subscribeCollection(Collection *BS ){
+void Member::displayBorrowList()
+{
+    if(!CollectionList[0]->getBookList().empty())
+        {
+            for(int i = 0 ; i < CollectionList[0]->getBookList().size(); i++){
+                std:: cout << CollectionList[0]->getBookList()[i]->getT() << "\n";
+            }
+        }
+    else{
+        std::cout << "You have not borrowed any Book\n";
+    }
+}
+void Member::subscribeCollection(Collection *BS)
+{
     CollectionList.push_back(BS);
 }
 void Member::unSubscribeCollection(){
@@ -84,7 +87,13 @@ void Member::displayCollectionList(){
         }
     }
 }
-void Member::readBook(const Book *b){}
+void Member::readBook(const Book *b){
+    if(b->getVisibilityStatus() == true)
+        std::cout << "Member are reading " << b->getT() << "\n";    
+    else{
+        std::cout << "member are not allowed to read this Book\n";
+    }
+}
 
 void Member::setStartYear()
 {

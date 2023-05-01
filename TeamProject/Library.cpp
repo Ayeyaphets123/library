@@ -8,9 +8,12 @@ Library::~Library(){
         }
     listBook.clear();
 }
-void Library::searchBookTittle(std::string T)
+void Library::searchBookTittle()
 {   
     int index;
+    std::cout << "Enter book Tittle to search: ";
+    std::string T;
+    std::cin>>T;
     if(HelpSeachBookT(T,index)){
         HelpSeachBookT(T,index)->display();
     }
@@ -32,9 +35,11 @@ Book *Library::HelpSeachBookSE(std::string SE)
     }
     return nullptr;
 }
-void Library::searchBookSerialNum(std::string SE)
+void Library::searchBookSerialNum()
 {   
-    int index;
+    std::cout << "Enter book Serial Number to search: ";
+    std::string SE;
+    std::cin>>SE;
     if(HelpSeachBookSE(SE)){
         HelpSeachBookSE(SE)->display();
     }

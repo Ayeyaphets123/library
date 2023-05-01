@@ -3,7 +3,6 @@
 #include <iostream>
 #include "Book.h"
 #include <vector>
-
 class Collection 
 {
     private:
@@ -12,6 +11,7 @@ class Collection
         std::vector<Book *> BookList;
         
     public:
+        
         static int CollectionCountID;
         Collection() : CollectionID(0), CollectionName(" "){
             BookList.clear();
@@ -25,9 +25,9 @@ class Collection
         void setCoName(std::string);
         void addBookToCollection(Book *b);
 
-        void displayCollection();
+        void displayCollection( );
         
-        void deleteBook(std::string);
+        std::string deleteBook(std::string);
 
         int getCoID() const;
         std::string getCoName() const;

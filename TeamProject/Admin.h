@@ -16,28 +16,27 @@ class Admin : public Registered
         Admin(): Registered(High){}
         Admin(std::string userName, std::string password, std::string phone, std::string fullname, accessibilityType AL = High);
         ~Admin();
-        
         static Admin* CreatAdmin();
+
         static void addBook(Library *lib, Book *b);
         static void removeBook(Library *lib);
         static void EditBook(Library *lib);
+        void readBook( const Book *b);
+
         static void EditCollection(Library *lib);
         static void createCollection();
         static void deleteCollection(); 
-
-        std::vector <Member *> getMemberList() const;
-        std::vector <Collection *> getCollectionList() const;
-
-        void readBook( const Book *b); 
-        
-        void displayCollectionList();
-
+        void displayCollectionList(accessibilityType accessibilityLevel);
+ 
         void addMember(Member *);
+        void addCollection(Collection *);
         void showListMember();
 
         Collection * HelpSearchCollection(std::string);
         void PersonalInformation();
-
         void logout();
+
+        std::vector <Member *> getMemberList() const;
+        std::vector <Collection *> getCollectionList() const;
 };
 #endif

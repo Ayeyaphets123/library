@@ -17,6 +17,7 @@ Member* Guest::Register()
     std::cout << "Enter your fullname: ";
     std::cin >> FN;
     Member * newM = new Member (US,PS,phone,FN);
+    std::cout << "Register successfully! Please Login in the Main Menu." << std::endl;
     return newM;
 }
 void Guest::setID(int id){
@@ -27,6 +28,9 @@ int Guest::getID() const{
 }
 void Guest::readBook(const Book *b) 
 {
-    
+    if(b->getVisibilityStatus() == true)
+        std::cout << "Guest are allowed to read " << b->getFreePage() << "of this book\n";      
+    else
+        std::cout << "member are not allowed to read this Book\n";
 }
 int Guest::countID = 0;

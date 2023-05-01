@@ -18,8 +18,8 @@ public:
     Book *HelpSeachBookSE(std::string);
     Book *HelpSeachBookT(std::string, int &index);
 
-    void searchBookTittle(std::string);
-    void searchBookSerialNum(std::string);
+    void searchBookTittle();
+    void searchBookSerialNum();
 
     void HelpRemoveBookInLibrary(std::string);
 

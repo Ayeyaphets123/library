@@ -18,7 +18,7 @@ class Book
         Book(std::string T, std::string S, std::string A, int P, int FP, int C, bool VS, bool BS);
         ~Book() {}
         Book &operator =(const Book &b);
-        Book (const Book &b);
+        Book (const Book *b);
         void setTittle(std::string);
         void setSerialNum( std::string);
         void setAuthor(std::string);
