@@ -26,9 +26,8 @@ class Registered : public User
         std::string getPhone() const;
         std::string getP() const;
         std::string getF() const;
-        void login(int, std::string U, std::string P);
-        void logout();   
-
+        void login();
+        virtual void logout();   
         virtual void PersonalInformation() = 0;
         
 };

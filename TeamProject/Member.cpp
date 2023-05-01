@@ -145,3 +145,8 @@ void Member::HelpEditBook(std::string BookName, bool T_signal, bool A_signal, bo
     }
     
 }
+
+void Member::logout()
+{
+    std::cout << "Log out from Member\n";
+}

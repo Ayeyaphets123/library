@@ -37,5 +37,7 @@ class Admin : public Registered
 
         Collection * HelpSearchCollection(std::string);
         void PersonalInformation();
+
+        void logout();
 };
 #endif

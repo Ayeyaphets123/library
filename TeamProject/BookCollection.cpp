@@ -59,6 +59,10 @@ Collection::~Collection()
         }
         BookList.clear();
     }
+    CollectionID = 0;
+    CollectionName = " ";
+    CollectionCountID--;
+    
 }
 void Collection::setCoID(int ID){
     if(ID > 0) CollectionID = ID;

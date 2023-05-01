@@ -18,6 +18,7 @@ class User
         void setAccessibilityLevel(accessibilityType);
         accessibilityType getAccessibilityLevel() const;
         virtual void readBook(const Book *b) = 0;
+        
     private:
         accessibilityType accessibilityLevel;
 };

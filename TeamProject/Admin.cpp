@@ -15,24 +15,6 @@ Admin::~Admin(){
         listCollection.clear();
 
     for(int i = 0 ;i <MemberList.size(); i++){
-
-        // if(!MemberList[i]){ 
-        //     for(int j = 0 ; j < MemberList[i]->getBorrowedBookList().size(); j++){
-        //         if(MemberList[i]->getBorrowedBookList()[j])
-        //             delete MemberList[i]->getBorrowedBookList()[j];
-        //     }
-        //     //delete BookList in Collection -> delete the collection -> delete Member has the collections
-        //     for(int j = 0 ; j < MemberList[i]->getSubscribedCollectionList().size(); j++){
-        //         if( MemberList[i]->getSubscribedCollectionList()[j]){
-        //             for(int k = 0 ; k < MemberList[i]->getSubscribedCollectionList()[j]->getBookList().size() ;k++){
-        //                 if(MemberList[i]->getSubscribedCollectionList()[j]->getBookList()[k])
-        //                     delete MemberList[i]->getSubscribedCollectionList()[j]->getBookList()[k];
-        //             }
-        //         }
-        //         delete MemberList[i]->getSubscribedCollectionList()[j];
-        //     }
-        // }
-        // delete MemberList[i];
         MemberList[i]->~Member();
     }
     MemberList.clear();
@@ -76,16 +58,13 @@ void Admin::removeBook(Library *lib) {
 
         // delete in library
         lib->HelpRemoveBookInLibrary(BN);
-        lib->displayListBook();
         // delete in listCollection in Admin
         if(!listCollection.empty()){
             for(int i =0 ;i < listCollection.size(); i++){
                 listCollection[i]->deleteBook(BN);
             }
         }
-        else{
-            std::cout << "No collection to delete book\n";
-        }
+
         // delete in MemberList
         if(!MemberList.empty()){
         for(int i = 0 ; i < MemberList.size(); i++){
@@ -204,7 +183,6 @@ void Admin::EditBook(Library *lib){
                     case 7:
                     {   
                         std::cout << "Current VisibilityStatus: ";
-
                         if(lib->listBook[i]->getVisibilityStatus()){
                             std::cout << "Available to watch\n";
                             lib->listBook[i]->setVisibilityStatus(false);
@@ -418,6 +396,9 @@ void Admin::EditCollection(Library *lib)
         }
     }
     }
+    else{
+        std::cout << "No Collection to edit\n";
+    }
     std::cout << "------------------------\n";
     
 }
@@ -428,7 +409,7 @@ void Admin::createCollection()
     std::cout << "CreateCollection Mode\n";
     std::cout << "Enter Collection's name: ";
     std::string name;
-    getline(std::cin, name);
+    std::cin >> name;
     Collection * C = new Collection(name);
     listCollection.push_back(C);
     std::cout << "Exit CreateCollection Mode\n";
@@ -445,18 +426,12 @@ void Admin::deleteCollection(){
     if(!listCollection.empty()){
         for(int i = 0 ; i < listCollection.size(); i++){
             if(name == listCollection[i]->getCoName()){
-                if(!listCollection[i]->getBookList().empty()){
-                    for(int j = 0 ; j < listCollection[i]->getBookList().size(); j++){
-                        if(listCollection[i]->getBookList()[j])
-                            delete listCollection[i]->getBookList()[j];
-                    }
-                }
-                listCollection[i]->getBookList().clear();
-        
-            }
+                listCollection[i]->~Collection();
+                std::cout << "Delete Collection successfully\n";
+                return;
         }
-        listCollection.clear();
         std::cout << "Delete collection successfully\n";
+    }
     }
     else{
         std::cout << "Empty list collection to delete\n";
@@ -469,11 +444,13 @@ void Admin::readBook(const Book *b){}
 
 void Admin::displayCollectionList()
 {   
-    
     if(!listCollection.empty()){
         for(int  i = 0 ; i < listCollection.size(); i++){
             listCollection[i]->displayCollection();
         }
+    }
+    else{
+        std::cout << "No Collection to display\n";
     }
    
 }
@@ -482,6 +459,7 @@ void Admin::showListMember()
     if(!MemberList.empty()){
         for(int i = 0 ;i < MemberList.size(); i++){
             MemberList[i]->PersonalInformation();
+            MemberList[i]->displayCollectionList();
         }
     }
     else{
@@ -505,6 +483,12 @@ Collection *Admin::HelpSearchCollection(std::string N)
 
 void Admin::PersonalInformation()
 {
+
+}
+
+void Admin::logout()
+{
+    std::cout << "Log out from Admin\n";
 }
 
 void Admin::addMember(Member * m)

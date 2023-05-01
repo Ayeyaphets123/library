@@ -48,6 +48,8 @@ class Member : public Registered
 
         void HelpEditCollection(std::string CoName, bool N_signal, bool ID_signal, std::string NewCoName, int newID);
         void HelpEditBook(std::string BookName, bool T_signal, bool A_signal ,bool SE_signal,bool P_signal ,bool C_signal ,bool FP_signal ,bool VS_signal, std::string T, std::string A, std::string SE, int P, int C, int FP);
+
+        void logout();
 };
 
 #endif

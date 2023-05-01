@@ -40,11 +40,16 @@ std::string Registered:: getP() const{
 std::string Registered::getF() const{
     return fullname;
 }
-void Registered::login(int lv, std::string user, std::string pass){
-    
+void Registered::login()
+{
+    std::cout << "===== LOGIN SCREEN =====" << std::endl;
+    std::cout << "Username: ";
+    std::cin >> username;
+    std::cout << "Password: ";
+    std::cin >> password;
     
 }
 void Registered::logout(){
-
+    
 }
 int Registered::userCount = 0;
