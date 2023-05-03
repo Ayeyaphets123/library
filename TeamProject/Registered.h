@@ -15,6 +15,7 @@ class Registered : public User
         Registered(accessibilityType AL) : User(AL), ID(0), username(" "), password(" "), phone(" "), fullname(" "){
             userCount++;
         }
+        ~Registered(){}
         Registered(std::string U, std::string Pass,std::string Phone , std::string F, accessibilityType AL);
         void setID(int ID);
         void setU(std::string);

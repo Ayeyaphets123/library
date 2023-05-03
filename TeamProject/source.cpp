@@ -307,7 +307,14 @@ int main()
             case 2:
                 {
                 system("cls");
-                m[0]->login();
+                std::string userName;
+                std::string passWord;
+                std::cout << "Enter your username: ";
+                std::cin >>userName;
+                std::cout << "Enter your password: ";
+                std::cin >> passWord;
+                Member * mRegister = ptr->getMember(userName,passWord);
+                if(mRegister){
                 bool memberQuit = false;
                 while (!memberQuit) {
                     cout << "WELCOME MEMBER! HOW ARE YOU TODAY?" << endl;
@@ -356,7 +363,7 @@ int main()
                                     {
                                         system("cls");
                                         
-                                        m[0]->displayBorrowList();
+                                        mRegister->displayBorrowList();
                                         break;
                                     }
                                     case 4:
@@ -374,7 +381,7 @@ int main()
                                             *b = *lib->HelpSeachBookT(bookBorrowed,index);
                                             if(b != nullptr){
                                                 if(b->getBorrowedStatus() == false){
-                                                    m[0]->borrowBook(b);
+                                                    mRegister->borrowBook(b);
                                                     lib->HelpSeachBookT(bookBorrowed,index)->setBorrowedStatus(true);
                                                     b->setBorrowedStatus(true);
                                                     std::cout << "You have borrowed the book\n";
@@ -397,9 +404,9 @@ int main()
                                     case 5:
                                     {
                                         system("cls");
-                                        if(!m[0]->getCollectionList().empty()){
-                                            m[0]->displayBorrowList();
-                                        std::string mess = m[0]->returnBook();
+                                        if(!mRegister->getCollectionList().empty()){
+                                            mRegister->displayBorrowList();
+                                        std::string mess = mRegister->returnBook();
                                         if(mess != "not found"){
                                             int index;
                                             lib->HelpSeachBookT(mess,index)->setBorrowedStatus(false);
@@ -424,7 +431,7 @@ int main()
                                         int index;
                                         *b = *lib->HelpSeachBookT(readBook,index);
                                         if(b){
-                                            m[0]->readBook(b); 
+                                            mRegister->readBook(b); 
                                         } 
                                         else{
                                             std::cout << "The Book is not found\n";
@@ -479,7 +486,7 @@ int main()
                                     case 2:
                                     {
                                         system("cls");
-                                        m[0]->displayCollectionList();
+                                        mRegister->displayCollectionList();
                                         break;
                                     }
                                     case 3: 
@@ -487,13 +494,13 @@ int main()
 
                                         system("cls");
                                         if(!ptr->getCollectionList().empty()){
-                                            ptr->displayCollectionList(m[0]->getAccessibilityLevel());
+                                            ptr->displayCollectionList(mRegister->getAccessibilityLevel());
                                             
                                             std::string Cname;
                                             std::cout << "Enter Collection's name to search: ";
                                             std::cin >> Cname;
                                             if(ptr->HelpSearchCollection(Cname)){
-                                                m[0]->subscribeCollection(ptr->HelpSearchCollection(Cname));
+                                                mRegister->subscribeCollection(ptr->HelpSearchCollection(Cname));
                                                 std::cout << "You have subscribed successfully\n";
                                             }
                                             else{
@@ -509,7 +516,7 @@ int main()
                                     {
                                         system("cls");
                                 
-                                        m[0]->unSubscribeCollection();
+                                        mRegister->unSubscribeCollection();
 
                                         break;
                                     }
@@ -529,7 +536,7 @@ int main()
                         }
                         case 3:
                         {
-                            m[0]->logout();
+                            mRegister->logout();
                             memberQuit = true;
                             break;
                         }
@@ -539,6 +546,10 @@ int main()
                             break;
                         }
                     }
+                }
+                }
+                else{
+                    std::cout << "Wrong username or password\n";
                 }
                 break;
                 }
@@ -596,16 +607,19 @@ int main()
                                 cout << "Enter anything to return Guest's Menu: ";
                                 string ch;
                                 cin >> ch;
-                                if (ch != "-1")
-                                    break;
+                                if (ch != "-1") {break;}
+                                break;
+                                    
                             }
                             case 4:
                             {
                                 system("cls");
                                 // guest->Register()->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
                                 Member * newM = guest->Register();
-                                newM->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
                                 ptr->addMember(newM);
+                                Collection *co = ptr->HelpSearchCollection("Sample Book Collection");
+                                newM->subscribeCollection(co);
+                                
                                 guestQuit = true;
                                 break;
                             }
@@ -624,11 +638,13 @@ int main()
                     break;
                 }
             case 4:
+            {
                 quit = true;
                 exit(0);
+            }
             default:
             {
-                cout << "Invalid choice" << endl;
+                cout << "Invalid choice\n"; 
                 break;
             }
         }

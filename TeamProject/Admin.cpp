@@ -521,9 +521,22 @@ Collection *Admin::HelpSearchCollection(std::string N)
             }
         }
     }
-
     return nullptr;
     
+}
+
+Member *Admin::getMember(std::string U, std::string P) const
+{
+    if(!MemberList.empty()){
+        for(int i = 0 ; i < MemberList.size(); i++){
+            if(U == MemberList[i]->getU()){
+                if(P == MemberList[i]->getP()){
+                    return MemberList[i];
+                }
+            }
+        }
+    }
+    return nullptr;
 }
 
 void Admin::PersonalInformation()

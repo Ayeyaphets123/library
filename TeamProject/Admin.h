@@ -34,6 +34,7 @@ class Admin : public Registered
         void showListMember();
 
         Collection * HelpSearchCollection(std::string);
+        Member *getMember(std::string, std::string) const;
         void PersonalInformation();
         
         void logout();
