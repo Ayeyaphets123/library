@@ -5,14 +5,9 @@ Admin::~Admin(){
     
     // delete BookList in library
     for(int i = 0 ;i <listCollection.size(); i++){
-        if(listCollection[i]) 
-            for(int j = 0 ; j < listCollection[i]->getBookList().size(); i++){
-                if(listCollection[i]->getBookList()[j]) 
-                    delete listCollection[i]->getBookList()[j];
-            }
-        delete listCollection[i];
+        listCollection[i]->~Collection();
     }
-        listCollection.clear();
+    listCollection.clear();
 
     for(int i = 0 ;i <MemberList.size(); i++){
         MemberList[i]->~Member();
@@ -85,10 +80,13 @@ void Admin::EditBook(Library *lib){
         throw"Empty list to delete";
         
     else{
+        if(!lib->listBook.empty()){
+            for(int i = 0 ;i < lib->listBook.size(); i++){
+                std::cout << lib->listBook[i]->getT() << "\n";
+            }
         std::string BN;
         std::cout << "Enter book's name to edit: \n";
         std::cin >> BN;
-        if(!lib->listBook.empty()){
         for(int i = 0 ; i < lib->listBook.size(); i++){
             if(lib->listBook[i]->getT() == BN){
                 std::cout << "Old version: \n";
@@ -360,16 +358,13 @@ void Admin::EditCollection(Library *lib)
                         case 4:
                             if(!listCollection[i]->getBookList().empty()){
                                 for(int j =0 ; j < listCollection[i]->getBookList().size() ;j++){
-                                    std::cout << listCollection[i]->getCoName() << "\n";
+                                    std::cout << listCollection[i]->getBookList()[j]->getT() << "\n";
                                 }
                                 std::cout << "Enter name of book you want to delete: ";
                                 std::cin >> DeleteBookName;
 
                                 listCollection[i]->deleteBook(DeleteBookName);
 
-                                for(int j =0 ; j < listCollection[i]->getBookList().size() ;j++){
-                                    std::cout << listCollection[i]->getBookList()[j] ->getT() << "\n";
-                                }
                                 if(!MemberList.empty()){
                                     for(int i = 0 ;i < MemberList.size(); i++){
                                         MemberList[i]->deleteBookInCollection(DeleteBookName);
@@ -435,13 +430,15 @@ void Admin::createCollection()
 
 }
 void Admin::deleteCollection(){
-    
+    if(!listCollection.empty()){
+    for(int i = 0 ; i < listCollection.size(); i++){
+            std::cout << listCollection[i]->getCoName() << "\n";
+    }
     std::cout << "\n\n------------------------\n";
     std::cout << "deleteCollection Mode\n";
     std::cout << "Enter Collection's name to delete: ";
     std::string name;
     std::cin >> name;
-    if(!listCollection.empty()){
         for(int i = 0 ; i < listCollection.size(); i++){
             if(name == listCollection[i]->getCoName()){
                 if(i != listCollection.size() -1){

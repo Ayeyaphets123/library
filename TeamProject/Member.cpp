@@ -63,6 +63,10 @@ void Member::subscribeCollection(Collection *BS)
 }
 void Member::unSubscribeCollection(){
     if(!CollectionList.empty()){
+    for(int i = 0 ; i < CollectionList.size(); i++){
+        std::cout << CollectionList[i]->getCoName() << "\n";
+    }
+
     std::cout << "Enter Collection's name to unsubscribe: ";
     std::string CN;
     std::cin >> CN;

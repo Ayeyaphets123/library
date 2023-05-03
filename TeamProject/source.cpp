@@ -66,7 +66,7 @@ int main()
     };
 
     ptr->addMember(m[0]);
-
+    m[0]->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
 
     //menu starts from here
     bool quit = false;
@@ -355,7 +355,7 @@ int main()
                                     case 3:
                                     {
                                         system("cls");
-                                        m[0]->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
+                                        
                                         m[0]->displayBorrowList();
                                         break;
                                     }
@@ -508,7 +508,9 @@ int main()
                                     case 4:
                                     {
                                         system("cls");
+                                
                                         m[0]->unSubscribeCollection();
+
                                         break;
                                     }
                                     case 5:
@@ -576,7 +578,7 @@ int main()
                             {
                                 system("cls");
                                 std::cout << "Sample Books for guest: \n";
-                                sampleCollection->displayCollection();
+                                ptr->getCollectionList()[0]->displayCollection();
                                 std::cout << "Enter book name that you want to read: ";
                                 std::string readBook;
                                 std::cin >> readBook;
@@ -600,7 +602,6 @@ int main()
                             case 4:
                             {
                                 system("cls");
-                                ptr->addMember(guest->Register());
                                 guest->Register()->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
                                 guestQuit = true;
                                 break;

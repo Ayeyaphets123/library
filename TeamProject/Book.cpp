@@ -22,7 +22,7 @@ Book &Book::operator=(const Book &b)
         this->setAuthor(b.getAuthor());
         this->setTittle(b.getT());
         this->setSerialNum(b.getSeNum());
-        this->setCategory(b.getCategory());
+        this->setCategory(b.category);
         this->setPageNum(b.getPageNum());
         this->setBorrowedStatus(b.getBorrowedStatus());
         this->setFreePage(b.getFreePage());
@@ -36,7 +36,7 @@ Book::Book(const Book *b)
     newB->setAuthor(b->getAuthor());
     newB->setTittle(b->getT());
     newB->setSerialNum(b->getSeNum());
-    newB->setCategory(b->getCategory());
+    newB->setCategory(b->category);
     newB->setPageNum(b->getPageNum());
     newB->setBorrowedStatus(b->getBorrowedStatus());
     newB->setFreePage(b->getFreePage());
@@ -85,8 +85,13 @@ int Book::getPageNum() const{
 int Book::getFreePage() const{
     return freePageReading;
 }
-int Book::getCategory() const{
-    return category;
+std::string Book::getCategory() const{
+    if(category == 1)
+        return "Culture";
+    if(category == 2)
+        return "Science";
+    if(category == 3)
+        return "Fiction";
 }
 bool Book::getVisibilityStatus() const{
     return visibilityStatus;
@@ -103,7 +108,7 @@ void Book::display()
               << "Author: " << author << "\n"
               << "PageNumber: " << pageNumber << "\n"
               << "FreePageReading: " << freePageReading << "\n"
-              << "Category: " << category << "\n"
+              << "Category: " << getCategory() << "\n"
               << "VisibilityStatus: " << visibilityStatus << "\n"
               << "BorrowedStatus: " << borrowedStatus << "\n";
     std::cout << "==========================\n";

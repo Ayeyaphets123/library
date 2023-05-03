@@ -32,7 +32,7 @@ class Book
         std::string getAuthor() const;
         int getPageNum() const;
         int getFreePage() const;
-        int getCategory() const;
+        std::string getCategory() const;
         bool getVisibilityStatus() const;
         bool getBorrowedStatus() const;
         void display();

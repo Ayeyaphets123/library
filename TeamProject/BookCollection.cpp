@@ -132,7 +132,7 @@ void Collection::displayCollection(){
         }
     }
     else{
-        std::cout << "Empty Collection << " << CollectionName<< " to display\n";
+        std::cout << "Empty Collection < " << CollectionName<< " > to display\n";
     }
 }
 std::string Collection::deleteBook(std::string N)
