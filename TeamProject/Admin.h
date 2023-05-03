@@ -11,6 +11,7 @@ class Admin : public Registered
     private:
         static std::vector <Member *> MemberList;
         static std::vector <Collection *> listCollection;
+        static std::vector <Admin *> listAdmin;
         
     public:
         Admin(): Registered(High){}
@@ -34,8 +35,9 @@ class Admin : public Registered
 
         Collection * HelpSearchCollection(std::string);
         void PersonalInformation();
+        
         void logout();
-
+        
         std::vector <Member *> getMemberList() const;
         std::vector <Collection *> getCollectionList() const;
 };

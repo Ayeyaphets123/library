@@ -140,6 +140,7 @@ void Member::PersonalInformation()
 {
     std::cout << "Member Personal Information\n"
               << "ID: " << getId() << "\n"
+              << "Fullname: " <<getF() << "\n"
               << "Username: " << getU() << "\n"
               << "Password: " << getP() << "\n"
               << "Phone Number: " << getPhone() << "\n"

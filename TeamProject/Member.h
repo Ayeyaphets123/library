@@ -1,7 +1,7 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 #include "User.h"
-#include "Registered.h"
+#include "Admin.h"
 #include "BookCollection.h"
 #include "Book.h"
 #include <ctime>
@@ -52,6 +52,7 @@ class Member : public Registered
 
         void helpDeleteCollection(std::string);
 
+        
         void logout();
 };
 

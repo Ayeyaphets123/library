@@ -531,10 +531,12 @@ void Admin::PersonalInformation()
 
 }
 
+
 void Admin::logout()
 {
     std::cout << "Log out from Admin\n";
 }
+
 
 void Admin::addMember(Member * m)
 {
@@ -543,6 +545,8 @@ void Admin::addMember(Member * m)
 
 std::vector<Member *> Admin::MemberList;
 std::vector <Collection *> Admin::listCollection;
+
+
 std::vector <Member *> Admin::getMemberList() const{
     return MemberList;
 }

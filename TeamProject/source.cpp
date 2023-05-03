@@ -307,7 +307,7 @@ int main()
             case 2:
                 {
                 system("cls");
-                ptr->login();
+                m[0]->login();
                 bool memberQuit = false;
                 while (!memberQuit) {
                     cout << "WELCOME MEMBER! HOW ARE YOU TODAY?" << endl;
@@ -602,7 +602,10 @@ int main()
                             case 4:
                             {
                                 system("cls");
-                                guest->Register()->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
+                                // guest->Register()->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
+                                Member * newM = guest->Register();
+                                newM->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
+                                ptr->addMember(newM);
                                 guestQuit = true;
                                 break;
                             }
