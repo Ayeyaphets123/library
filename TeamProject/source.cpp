@@ -355,16 +355,21 @@ int main()
                                     case 3:
                                     {
                                         system("cls");
+                                        m[0]->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
                                         m[0]->displayBorrowList();
                                         break;
                                     }
                                     case 4:
-                                    {   
-                                       std::cout << "Enter Book to borrow: ";
-                                       std::string bookBorrowed;
-                                       std::cin >> bookBorrowed;
-                                       int index;
-                                        if(lib->HelpSeachBookT(bookBorrowed,index)){
+                                    {  system("cls");
+                                        if(!lib->getListBook().empty()){
+                                            for(int i =0 ;i < lib->getListBook().size(); i++){
+                                                std::cout << lib->getListBook()[i]->getT() << "\n";
+                                            }
+                                            std::cout << "Enter Book to borrow: ";
+                                            std::string bookBorrowed;
+                                            std::cin >> bookBorrowed;
+                                            int index;
+                                            if(lib->HelpSeachBookT(bookBorrowed,index)){
                                             Book * b = new Book();
                                             *b = *lib->HelpSeachBookT(bookBorrowed,index);
                                             if(b != nullptr){
@@ -383,21 +388,35 @@ int main()
                                         else{
                                             std::cout << "The Book is not found\n";
                                         } 
+                                    }
+                                    else{
+                                        std::cout << "The library does not have any Book or you to borrow\n";
+                                    }
                                         break;
                                     }
                                     case 5:
                                     {
                                         system("cls");
+                                        if(!m[0]->getCollectionList().empty()){
+                                            m[0]->displayBorrowList();
                                         std::string mess = m[0]->returnBook();
                                         if(mess != "not found"){
                                             int index;
                                             lib->HelpSeachBookT(mess,index)->setBorrowedStatus(false);
+                                        }
+                                        }
+                                        else{
+                                            std::cout << "You have not borrowed any Book yet to return\n";
                                         }
                                         break;
                                     }
                                     case 6:
                                     {
                                         system("cls");
+                                        if(!lib->getListBook().empty()){
+                                            for(int i = 0 ; i < lib->getListBook().size(); i++){
+                                                std::cout << lib->getListBook()[i]->getT() << "\n";
+                                            }
                                         std::cout << "Enter book name that you want to read: ";
                                         std::string readBook;
                                         std::cin >> readBook;
@@ -415,6 +434,11 @@ int main()
                                         cin >> ch;
                                         if (ch != "-1")
                                             break;
+                                        }
+                                        else{
+                                            std::cout << "Library does not have any book to be read\n";
+                                        }
+                                        break;
                                     }
                                     case 7:
                                     {
@@ -459,18 +483,25 @@ int main()
                                         break;
                                     }
                                     case 3: 
-                                    {
+                                    {   
 
                                         system("cls");
-                                        std::string Cname;
-                                        std::cout << "Enter Collection's name to search: ";
-                                        std::cin >> Cname;
-                                        if(ptr->HelpSearchCollection(Cname)){
-                                            m[0]->subscribeCollection(ptr->HelpSearchCollection(Cname));
-                                            std::cout << "You have subscribed successfully\n";
+                                        if(!ptr->getCollectionList().empty()){
+                                            ptr->displayCollectionList(m[0]->getAccessibilityLevel());
+                                            
+                                            std::string Cname;
+                                            std::cout << "Enter Collection's name to search: ";
+                                            std::cin >> Cname;
+                                            if(ptr->HelpSearchCollection(Cname)){
+                                                m[0]->subscribeCollection(ptr->HelpSearchCollection(Cname));
+                                                std::cout << "You have subscribed successfully\n";
+                                            }
+                                            else{
+                                                std::cout << "The collection is not found\n";
+                                            }
                                         }
                                         else{
-                                            std::cout << "The collection is not found\n";
+                                            std::cout << "There is no Collection for you to subscribe\n";
                                         }
                                         break;
                                     }
@@ -570,6 +601,7 @@ int main()
                             {
                                 system("cls");
                                 ptr->addMember(guest->Register());
+                                guest->Register()->subscribeCollection(ptr->HelpSearchCollection("Sample Book Collection"));
                                 guestQuit = true;
                                 break;
                             }
@@ -599,10 +631,7 @@ int main()
     }
     delete ptr;
     delete guest;
-    delete m;
-    delete [] b;
-    delete sampleCollection;
-    delete [] C;
-
+    
+   
 return 0;
 }

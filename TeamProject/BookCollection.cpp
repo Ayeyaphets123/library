@@ -139,20 +139,21 @@ std::string Collection::deleteBook(std::string N)
 {   
     std::cout << "\n--------------------------------\n";
     if(!BookList.empty()){
-    for(int i = 0 ; i < BookList.size(); i++){
-        if(N == BookList[i]->getT()){
-            if(i != BookList.size()- 1){
-                for(int j = i ; j < BookList.size() - 1; j++){
-                    *BookList[j] = *BookList[j+1];
+        for(int i = 0 ; i < BookList.size(); i++){
+            if(N == BookList[i]->getT()){
+                if(i != BookList.size()- 1){
+                    for(int j = i ; j < BookList.size() - 1; j++){
+                        *BookList[j] = *BookList[j+1];
+                    }
                 }
+                delete BookList[BookList.size() -1];
+                BookList.resize(BookList.size() -1);
+                std::cout << "Delete Book in Collection <" << getCoName() << " > successfully\n";
+                return N;
             }
-            delete BookList[BookList.size() -1];
-            BookList.resize(BookList.size() -1);
-            std::cout << "Delete Book in Collection <" << getCoName() << "> successfully\n";
-            return N;
         }
-    }
     std::cout << "The Book is not found to be deleted in The Collection " << getCoName() << "\n";
+    return "not found";
     }
     else{
         std::cout << "Empty collection < " << getCoName() << " > to delete\n";

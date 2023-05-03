@@ -47,6 +47,10 @@ void Library::searchBookSerialNum()
         std::cout << "Book " << SE << " not found in library\n";
     }
 }
+std::vector<Book *> Library::getListBook() const
+{
+    return listBook;
+}
 void Library::displayListBook()
 {
     if(!listBook.empty()){

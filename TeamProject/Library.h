@@ -23,6 +23,7 @@ public:
 
     void HelpRemoveBookInLibrary(std::string);
 
+    std::vector<Book *> getListBook() const;
     void displayListBook();
     friend class Admin;
 };

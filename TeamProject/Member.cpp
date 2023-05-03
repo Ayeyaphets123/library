@@ -62,10 +62,10 @@ void Member::subscribeCollection(Collection *BS)
     CollectionList.push_back(BS);
 }
 void Member::unSubscribeCollection(){
+    if(!CollectionList.empty()){
     std::cout << "Enter Collection's name to unsubscribe: ";
     std::string CN;
     std::cin >> CN;
-    if(!CollectionList.empty()){
         for(int i = 0 ; i < CollectionList.size(); i++){
             if(CN == CollectionList[i]->getCoName()){
                 if(i != CollectionList.size() -1){
@@ -120,15 +120,15 @@ std::vector<Collection *> Member::getCollectionList() const
 void Member::deleteBookInCollection(std::string N)
 {   
     std::cout << "\n--------------------------------\n";
-    std::cout << "Delete book in CollectionList Member " << getF() << "\n";
+    std::cout << "Delete book process in CollectionList from Member " << getF() << "\n";
     if(!CollectionList.empty()){
-            for(int i =0 ;i < CollectionList.size(); i++){
+        for(int i =0 ;i < CollectionList.size(); i++){
                 CollectionList[i]->deleteBook(N);
-            }
         }
-        else{
-            std::cout << "No collection to delete book\n";
         }
+    else{
+        std::cout << "No collection to delete book\n";
+    }
     std::cout << "--------------------------------\n";
 
 }
@@ -161,6 +161,29 @@ void Member::HelpEditBook(std::string BookName, bool T_signal, bool A_signal, bo
         }
     }
     
+}
+
+void Member::helpDeleteCollection(std::string name)
+{
+    if(!CollectionList.empty()){
+        for(int i = 0 ; i < CollectionList.size(); i++){
+            if(name == CollectionList[i]->getCoName()){
+                if(i != CollectionList.size() -1){
+                    for(int j = i; j < CollectionList.size() -1 ; j++){
+                        *CollectionList[j] = *CollectionList[j+1];
+                    }
+                }
+                CollectionList[CollectionList.size() - 1]->~Collection();
+                CollectionList.resize(CollectionList.size() - 1);
+                std::cout << "Delete Collection < " << name << " > successfully of Member " << getF() << "\n";
+                return;
+        }
+        }
+        std::cout << "The Collection is not found in Member Collection List to delete\n";
+    }
+    else{
+        std::cout << "Empty list collection to delete \n";
+    }
 }
 
 void Member::logout()
